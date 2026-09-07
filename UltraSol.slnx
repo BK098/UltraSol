@@ -14,14 +14,18 @@
     <Project Path="src/Modules/Auth/UltraSol.Modules.Auth.Infrastructure/UltraSol.Modules.Auth.Infrastructure.csproj" Id="a02ec15a-d363-4633-98d7-d1de674ab96c" />
   </Folder>
   <Folder Name="/src/Modules/Catalog/">
+    <Project Path="src/Modules/Catalog/UltraSol.Modules.Catalog.Api/UltraSol.Modules.Catalog.Api.csproj" Id="2a3f196e-86b2-4455-b843-cd1962c1cfe5" />
+    <Project Path="src/Modules/Catalog/UltraSol.Modules.Catalog.Application/UltraSol.Modules.Catalog.Application.csproj" Id="4c2438f5-5c87-42bd-b469-8bbe0e41b21f" />
     <Project Path="src/Modules/Catalog/UltraSol.Modules.Catalog.Domain/UltraSol.Modules.Catalog.Domain.csproj" Id="215724a4-1758-467c-9bcc-8f08b8c9e40d" />
+    <Project Path="src/Modules/Catalog/UltraSol.Modules.Catalog.Infrastructure/UltraSol.Modules.Catalog.Infrastructure.csproj" Id="f219bef4-3367-4286-bd56-ba01b2fafeaf" />
   </Folder>
   <Folder Name="/src/Shared/">
-    <Project Path="src/Shared/RABC.Shared.Application/UltraSol.Shared.Application.csproj" Id="19c9258f-c85c-40ea-876b-52ed9d7b9d3a" />
-    <Project Path="src/Shared/RABC.Shared.Domain/UltraSol.Shared.Domain.csproj" Id="430ad254-c2f1-4cf2-9255-9bd639ae340c" />
-    <Project Path="src/Shared/RABC.Shared.Infrastructure/UltraSol.Shared.Infrastructure.csproj" Id="377fd628-63fe-442c-b74f-0659fcc27a7b" />
+    <Project Path="src/Shared/UltraSol.Shared.Application/UltraSol.Shared.Application.csproj" Id="19c9258f-c85c-40ea-876b-52ed9d7b9d3a" />
+    <Project Path="src/Shared/UltraSol.Shared.Domain/UltraSol.Shared.Domain.csproj" Id="430ad254-c2f1-4cf2-9255-9bd639ae340c" />
+    <Project Path="src/Shared/UltraSol.Shared.Infrastructure/UltraSol.Shared.Infrastructure.csproj" Id="377fd628-63fe-442c-b74f-0659fcc27a7b" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/UltraSol.Modules.Catalog.Domain.Tests/UltraSol.Modules.Catalog.Domain.Tests.csproj" />
+    <Project Path="tests/UltraSol.Modules.Catalog.Infrastructure.Tests/UltraSol.Modules.Catalog.Infrastructure.Tests.csproj" />
   </Folder>
 </Solution>

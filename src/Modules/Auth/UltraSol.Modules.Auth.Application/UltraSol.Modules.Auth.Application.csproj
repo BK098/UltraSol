@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Shared\RABC.Shared.Domain\UltraSol.Shared.Domain.csproj" />
+    <ProjectReference Include="..\..\..\Shared\UltraSol.Shared.Domain\UltraSol.Shared.Domain.csproj" />
     <ProjectReference Include="..\UltraSol.Modules.Auth.Infrastructure\UltraSol.Modules.Auth.Infrastructure.csproj" />
   </ItemGroup>
 

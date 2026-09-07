@@ -1,6 +1,6 @@
-using UltraSol.Modules.Catalog.Domain.Catalog.ProductAggregate;
-using UltraSol.Modules.Catalog.Domain.Catalog.ProductItemAggregate;
-using UltraSol.Modules.Catalog.Domain.Catalog.ProductItemAggregate.ValueObjects;
+using UltraSol.Modules.Catalog.Domain.Catalog.ProductItems;
+using UltraSol.Modules.Catalog.Domain.Catalog.ProductItems.ValueObjects;
+using UltraSol.Modules.Catalog.Domain.Catalog.Products;
 using UltraSol.Shared.Domain.Common.Entities;
 using UltraSol.Shared.Domain.Common.Exceptions;
 using Xunit;

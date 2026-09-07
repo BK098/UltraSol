@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\Auth\UltraSol.Modules.Auth.Api\UltraSol.Modules.Auth.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Catalog\UltraSol.Modules.Catalog.Api\UltraSol.Modules.Catalog.Api.csproj" />
   </ItemGroup>
 
 </Project>
