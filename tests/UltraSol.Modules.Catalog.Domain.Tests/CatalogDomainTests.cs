@@ -89,6 +89,17 @@ public class CatalogDomainTests
     }
 
     [Fact]
+    public void PublishRaisesProductPublishedEvent()
+    {
+        var product = Product.Create("Product");
+        DefaultItem(product);
+
+        product.Publish();
+
+        Assert.Contains(product.DomainEvents, domainEvent => domainEvent is Product.ProductPublished published && published.ProductId == product.Id);
+    }
+
+    [Fact]
     public void FirstItemLocksStructureButAllowsNewOptionsAndMetadata()
     {
         var (product, variation, option) = Configured();

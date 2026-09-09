@@ -1,118 +1,52 @@
 # Catalog Infrastructure
 
-## Dependencies and module registration
+## Reusable module context
 
-Bootstrapper references Catalog.Api; Catalog.Api references Catalog.Infrastructure.
-Catalog.Infrastructure references Catalog.Domain and UltraSol.Shared.Infrastructure.
-Runtime EF/Npgsql packages flow from Shared. EF Core Design is a direct private tooling dependency.
-Each module owns Persistence/Schema.cs (catalog and auth).
+CatalogDbContext inherits ModuleDbContext<CatalogDbContext>. The shared base is generic over the context type; aggregate hooks currently use AggregateRoot with Guid keys. Supporting other aggregate key types is outside this refactor.
 
-All Catalog registration is in CatalogModule.AddCatalogModule. Repositories inherit the existing
-Shared Repository<T>; IRepository<T>, IQueryRepository<T>, ICommandRepository<T> and the specific
-Catalog repository interface resolve to the same scoped instance.
+The base owns repository materialization and the asynchronous save sequence:
 
-UnitOfWork is the Shared implementation, registered under the key "catalog". There is no separate
-CatalogTransactionExecutor or CatalogUnitOfWork. Keyed registration avoids selecting the wrong
-DbContext when other modules add their own UnitOfWork.
+1. Check cancellation, transaction policy and acceptAllChangesOnSuccess.
+2. Recognize newly added aggregates, check deletion policy and require complete aggregates when configured.
+3. Call PrepareAggregatesAsync with the tracked aggregate roots.
+4. Call EF SaveChangesAsync.
 
-## Example write
+Both asynchronous save overloads use this sequence. Synchronous saves and acceptAllChangesOnSuccess=false are unsupported. Save methods are sealed so a module cannot accidentally bypass the sequence.
 
-```csharp
-public sealed class RenameProduct(
-    IProductRepository products,
-    [FromKeyedServices("catalog")] IUnitOfWork unitOfWork)
-{
-    public Task Execute(Guid id, string name, CancellationToken cancellationToken) =>
-        unitOfWork.ExecuteInTransactionAsync(async ct =>
-        {
-            var product = await products.GetTrackedRequiredAsync(id, ct);
-            product.Rename(name);
-            // Shared UnitOfWork saves and commits after the callback.
-        }, cancellationToken);
-}
-```
+MaterializeAsync calls HydrateAggregateAsync and remembers successful loads of tracked aggregates by object reference. Added aggregates are already complete. Detached read results are hydrated without being marked complete for later writes. Failed hydration can be retried. Contexts retain their own materialization state; use a fresh context for a fresh unit of work, especially after rollback.
 
-Use FindTrackedAsync/GetTrackedRequiredAsync inside the transaction for mutations.
-GetByIdAsync/ListAsync/entity paging are read-only and load a complete aggregate without tracking.
-Do not attach a detached aggregate for graph replacement through UpdateAsync; read the tracked
-aggregate and call its behavior instead. This preserves originals, removed children and concurrency.
-Raw IQueryable Query(...) and DTO projections remain low-level query APIs and do not assemble
-ignored join data. Use materializing repository methods to obtain complete aggregates.
+The default policies allow aggregate deletion and do not require an explicit transaction or complete aggregate materialization. Catalog explicitly sets RequireTransaction=true, AllowAggregateDeletion=false and RequireMaterializedAggregates=true. The deletion policy guards tracked aggregate deletion during SaveChangesAsync; restrictions on repository bulk/delete operations remain the module's IRepositoryWritePolicy responsibility.
 
-Shared IRepositoryMaterializer is an optional context hook: contexts without it keep their existing
-behavior. Catalog uses it for relational category links, item selections/bundles and collection rules.
-New aggregates added through Shared AddAsync/AddRangeAsync are recognized by CatalogDbContext.
-Saving modified children refreshes the owning aggregate's audit/concurrency token.
+## Adding another module
 
-Catalog blocks repository Delete/ExecuteDelete/bulk update because they bypass Archive and aggregate
-rules. Remove children through their AR. The SQL account remains privileged; direct SQL is an
-administrative path, not an alternative domain write API.
+Create a concrete context inheriting ModuleDbContext<YourDbContext> with DbContextOptions<YourDbContext>. Keep DbSet declarations, schema and model configuration in that module. Override the policy properties as needed.
 
-## Transactions and events
+Override HydrateAggregateAsync when aggregates contain data that the shared repository must assemble after querying. Override PrepareAggregatesAsync for module-specific synchronization, validation or audit changes before EF saves. Hooks must not call SaveChangesAsync recursively, commit transactions or dispatch events. The preparation hook receives roots validated before it runs; it should prepare their data rather than introduce new aggregate roots.
 
-Shared ITransactionPreparation allows Catalog to acquire a transaction-scoped advisory lock before
-business reads. The initial implementation serializes Catalog writers using one lock (731004, 1).
-This is deliberately conservative: it protects hierarchy and archive/reference races, at the cost
-of concurrent write throughput. Reads do not acquire this lock.
+A module requiring custom transaction setup can implement ITransactionPreparation. Shared UnitOfWork invokes it after opening a transaction and before the business callback. A module restricting repository delete/bulk operations can implement IRepositoryWritePolicy. Shared infrastructure has no dependency on Catalog entity types or SQL.
 
-Use ExecuteInTransactionAsync with provider retry enabled; it enters an EF execution-strategy scope.
-It executes the write callback once. It does not replay captured repositories or mutated entities
-on the same DbContext. Retry a transient failure at the caller boundary with a fresh DI scope and
-fresh database reads. Read retry configuration in Shared AddPostgres is retained.
+## Catalog responsibilities
 
-BeginTransactionAsync is available for manual ownership; with a retry-enabled provider the caller
-must place the entire manual transaction inside a suitable execution-strategy scope. Do not begin
-nested transactions. SaveChangesAsync alone opens/commits its own transaction, but a write involving
-prior reads must use ExecuteInTransactionAsync so locks are acquired before those reads.
+Catalog owns hydration of product variations/media/categories, item selections/bundles and collection membership/rules. Its preparation hook synchronizes relational rows, finds owners of changed children and updates aggregate audit/concurrency values. It also clears previous primary-media flags before EF writes replacements to satisfy immediate unique indexes.
 
-Events remain on the owner if saving/commit fails. Dispatch occurs after commit. A handler failure
-must not cause the business transaction to be replayed; its database changes have already committed.
-Events are removed only after successful dispatch. This is in-process delivery, not a durable outbox:
-process failure between commit and dispatch still needs an outbox when reliable integration events
-become a requirement. DomainEventDispatcher invokes registered IDomainEventHandler implementations;
-there are currently no Catalog event handlers.
+Catalog retains its transaction-scoped PostgreSQL advisory lock (731004, 1), acquired through ITransactionPreparation. Repository deletion and bulk writes remain blocked. Use aggregate Archive behavior or remove children through their owning aggregate.
 
-For externally-owned test transactions, call SaveChangesAsync(false) to disable dispatch.
-IUnitOfWork-owned transactions coordinate post-commit dispatch.
+Load tracked aggregates with repository methods before changing them. Raw IQueryable queries and DTO projections do not assemble ignored join data. Avoid attaching detached graphs for replacement writes.
 
-## Migration and PostgreSQL
+## Registration, transactions and events
 
-CatalogPostgresConfiguration shares the migrations assembly and catalog.__EFMigrationsHistory
-between runtime and CatalogDbContextFactory. It does not install PostgreSQL or create a connection
-independently of Postgres:ConnectionString.
+CatalogModule registers CatalogDbContext with AddPostgres<CatalogDbContext>(), discovers repositories through AddRegistration and registers ICatalogUnitOfWork with CatalogUnitOfWork. CatalogUnitOfWork inherits the shared UnitOfWork. ProductPublishedHandler is registered as a domain event handler.
 
-UseCatalogModuleAsync runs migrations after Build only in Development. It creates the configured
-database if missing, checks for unmanaged Catalog tables and never drops/resets the database.
-The configured development database is ultrasol_database. Other environments use explicit tooling.
+Use ICatalogUnitOfWork.ExecuteInTransactionAsync for operations with business reads and writes so the Catalog lock is acquired before reads. The unit of work commits before dispatching domain events. This is in-process dispatch, not a durable outbox. Retry failed operations with a fresh scope and freshly loaded aggregates.
 
-Factory reads Bootstrapper appsettings.json, appsettings.{environment}.json, development user-secrets,
-then environment variables. Postgres__ConnectionString overrides the connection without changing files.
-Passwords are not logged. The factory's user-secret ID matches Bootstrapper.
+For externally owned transactions, IUnitOfWork.SaveChangesAsync(false) disables event dispatch. This boolean is different from DbContext.SaveChangesAsync(false), which controls accepting tracked changes and is unsupported by ModuleDbContext.
 
-```powershell
-dotnet ef migrations add MigrationName --project src/Modules/Catalog/UltraSol.Modules.Catalog.Infrastructure --startup-project src/Modules/Catalog/UltraSol.Modules.Catalog.Infrastructure --output-dir Persistence/Migrations
-dotnet ef database update --project src/Modules/Catalog/UltraSol.Modules.Catalog.Infrastructure --startup-project src/Modules/Catalog/UltraSol.Modules.Catalog.Infrastructure
-dotnet ef migrations has-pending-model-changes --project src/Modules/Catalog/UltraSol.Modules.Catalog.Infrastructure --startup-project src/Modules/Catalog/UltraSol.Modules.Catalog.Infrastructure
-```
+## Migration and verification status
 
-Use a dotnet-ef 10.x tool matching the EF runtime when updating local tooling.
-Migration 1 creates 15 tables; migration 2 installs deferred integrity triggers; migration 3 fixes
-reference-trigger record access across different tables. Existing migration history is preserved.
+The current workspace has removed CatalogDbContextFactory, CatalogMigrator, CatalogPostgresConfiguration and the Catalog migration files. UseCatalogModule currently creates a scope without running migrations; Catalog registration uses AddPostgres with its default runMigration=false. This refactor does not recreate or apply migrations.
 
-SKU is unique. Option signature has no length-based unique index and supports more than 16 variations:
-the deferred check compares full signatures under the Catalog write lock. Selection composite FKs
-enforce Product/variation/option ownership. Deferred triggers also protect bundle composition,
-collection type/rules and category cycles. No soft-delete columns are mapped.
+Build the solution with dotnet build UltraSol.slnx. Run the Infrastructure test project explicitly; it is not currently included in that solution.
 
-## Verification
+ModuleDbContextTests uses a separate sample context and an EF save interceptor to test the shared pipeline without connecting to PostgreSQL. These tests cover policy isolation, hydration, failed hydration, detached reads, added aggregates, save overloads, cancellation and Catalog's transaction requirement. They do not verify PostgreSQL persistence.
 
-```powershell
-dotnet build UltraSol.slnx
-dotnet test UltraSol.slnx
-```
-
-Infrastructure tests use the configured PostgreSQL database. Migration is persistent; test row changes
-are rolled back. Event tests commit empty transactions only. Tests cover complete aggregate round-trips,
-primary media switching, long signatures, duplicate SKU/combination, stale updates, reference FKs,
-collection matching, writer serialization, DI and event timing.
-
+PersistenceTests includes guards for missing transactions and incomplete aggregates, plus existing aggregate round-trips and child-change concurrency checks. The full Infrastructure test project currently cannot compile because its older tests reference removed migration/startup APIs and pass EventContext to CatalogUnitOfWork, which now requires CatalogDbContext. Those pre-existing test dependencies need a separate update before PostgreSQL integration verification can run.

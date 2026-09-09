@@ -6,4 +6,3 @@ using UltraSol.Shared.Infrastructure.Repositories;
 namespace UltraSol.Modules.Catalog.Infrastructure.Repositories;
 
 public sealed class CategoryRepository(CatalogDbContext context) : Repository<Category>(context), ICategoryRepository;
-

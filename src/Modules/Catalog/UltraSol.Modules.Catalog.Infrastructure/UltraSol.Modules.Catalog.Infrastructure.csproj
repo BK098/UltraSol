@@ -10,4 +10,7 @@
     <ProjectReference Include="../UltraSol.Modules.Catalog.Domain/UltraSol.Modules.Catalog.Domain.csproj" />
     <ProjectReference Include="..\..\..\Shared\UltraSol.Shared.Infrastructure\UltraSol.Shared.Infrastructure.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Persistence\Migrations\" />
+  </ItemGroup>
 </Project>

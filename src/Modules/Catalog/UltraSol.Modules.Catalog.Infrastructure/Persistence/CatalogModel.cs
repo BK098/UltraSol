@@ -1,13 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using UltraSol.Modules.Catalog.Domain.Catalog.Brands;
 using UltraSol.Modules.Catalog.Domain.Catalog.Categories;
 using UltraSol.Modules.Catalog.Domain.Catalog.Collections;
-using UltraSol.Modules.Catalog.Domain.Catalog.Products;
 using UltraSol.Modules.Catalog.Domain.Catalog.ProductItems;
 using UltraSol.Modules.Catalog.Domain.Catalog.ProductItems.ValueObjects;
-using UltraSol.Shared.Domain.Common.Entities;
+using UltraSol.Modules.Catalog.Domain.Catalog.Products;
 using CatalogCollection = UltraSol.Modules.Catalog.Domain.Catalog.Collections.Collection;
+using UltraSol.Shared.Infrastructure.Persistence.Extensions;
 
 namespace UltraSol.Modules.Catalog.Infrastructure.Persistence;
 
@@ -15,7 +14,7 @@ internal static class CatalogModel
 {
     internal static void Configure(ModelBuilder m)
     {
-        var product = Root<Product>(m, "products");
+        var product = ModelConfigure.Root<Product>(m, "products");
         product.Ignore(x => x.CategoryIds);
         product.Property(x => x.Name).IsRequired();
         product.HasIndex(x => new { x.Status, x.Id });
@@ -26,17 +25,17 @@ internal static class CatalogModel
         product.Navigation(x => x.Media).HasField("_media").UsePropertyAccessMode(PropertyAccessMode.Field);
         product.ToTable("products", t => t.HasCheckConstraint("ck_product_status", "status IN (1,2,3,4)"));
 
-        var variation = Entity<Variation>(m, "variations");
+        var variation = ModelConfigure.Entity<Variation>(m, "variations");
         variation.Property<Guid>("ProductId");
         variation.HasAlternateKey("Id", "ProductId");
         variation.HasMany(x => x.Options).WithOne().HasForeignKey("VariationId").OnDelete(DeleteBehavior.Cascade);
         variation.Navigation(x => x.Options).HasField("_options").UsePropertyAccessMode(PropertyAccessMode.Field);
-        var option = Entity<VariationOption>(m, "variation_options");
+        var option = ModelConfigure.Entity<VariationOption>(m, "variation_options");
         option.Property<Guid>("VariationId");
         option.HasAlternateKey("Id", "VariationId");
-        Media<ProductMedia>(m, "product_media", "ProductId");
+        ModelConfigure.Media<ProductMedia>(m, "product_media", "ProductId");
 
-        var item = Root<ProductItem>(m, "product_items");
+        var item = ModelConfigure.Root<ProductItem>(m, "product_items");
         item.Ignore(x => x.OptionSelections);
         item.Ignore(x => x.BundleDefinition);
         item.Ignore(x => x.IsBundle);
@@ -49,14 +48,14 @@ internal static class CatalogModel
         item.HasOne<Product>().WithMany().HasForeignKey(x => x.ProductId).OnDelete(DeleteBehavior.Restrict);
         item.HasMany(x => x.Media).WithOne().HasForeignKey("ProductItemId").OnDelete(DeleteBehavior.Cascade);
         item.Navigation(x => x.Media).HasField("_media").UsePropertyAccessMode(PropertyAccessMode.Field);
-        Media<ProductItemMedia>(m, "product_item_media", "ProductItemId");
+        ModelConfigure.Media<ProductItemMedia>(m, "product_item_media", "ProductItemId");
 
-        Root<Brand>(m, "brands");
-        var category = Root<Category>(m, "categories");
+        ModelConfigure.Root<Brand>(m, "brands");
+        var category = ModelConfigure.Root<Category>(m, "categories");
         category.HasOne<Category>().WithMany().HasForeignKey(x => x.ParentCategoryId).OnDelete(DeleteBehavior.Restrict);
         category.ToTable("categories", t => t.HasCheckConstraint("ck_category_parent", "parent_category_id IS NULL OR parent_category_id <> id"));
 
-        var collection = Root<CatalogCollection>(m, "collections");
+        var collection = ModelConfigure.Root<CatalogCollection>(m, "collections");
         collection.Ignore(x => x.Entries);
         collection.Ignore(x => x.Rules);
         collection.Property(x => x.Type);
@@ -108,34 +107,9 @@ internal static class CatalogModel
         foreach (var p in entity.GetProperties())
         {
             if (p.Name is not ("StoredIsBundle" or "StoredMatchMode"))
-                p.SetColumnName(Snake(p.Name));
+            {
+                p.SetColumnName(ModelConfigure.Snake(p.Name));
+            }
         }
     }
-
-    private static EntityTypeBuilder<T> Entity<T>(ModelBuilder m, string table) where T : BaseEntity<Guid>
-    {
-        var b = m.Entity<T>();
-        b.HasBaseType((Type?)null);
-        b.ToTable(table);
-        b.HasKey(x => x.Id); b.Property(x => x.Id).ValueGeneratedNever();
-        return b;
-    }
-    private static EntityTypeBuilder<T> Root<T>(ModelBuilder m, string table) where T : AggregateRoot
-    {
-        var b = Entity<T>(m, table);
-        b.Ignore(x => x.DomainEvents); b.Ignore(x => x.IsDeleted);
-        b.Ignore(x => x.DeletedAt); b.Ignore(x => x.DeletedBy);
-        b.Property(x => x.ConcurrencyStamp).IsConcurrencyToken().IsRequired();
-        return b;
-    }
-    private static void Media<T>(ModelBuilder m, string table, string owner) where T : BaseEntity
-    {
-        var b = Entity<T>(m, table);
-        b.Property<Guid>(owner);
-        b.HasIndex(owner).IsUnique().HasFilter("is_primary");
-        b.HasIndex(owner, "SortOrder");
-        b.ToTable(table, t => t.HasCheckConstraint("ck_" + table + "_order", "sort_order >= 0"));
-    }
-    private static string Snake(string value) =>
-        string.Concat(value.Select((c, i) => char.IsUpper(c) && i > 0 ? "_" + char.ToLowerInvariant(c) : char.ToLowerInvariant(c).ToString()));
 }

@@ -5,4 +5,3 @@ public interface ITransactionPreparation
 {
     Task PrepareTransactionAsync(CancellationToken cancellationToken = default);
 }
-

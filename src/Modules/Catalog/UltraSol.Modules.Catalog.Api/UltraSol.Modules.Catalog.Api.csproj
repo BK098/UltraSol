@@ -5,6 +5,7 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
+		<ProjectReference Include="../UltraSol.Modules.Catalog.Application/UltraSol.Modules.Catalog.Application.csproj" />
 		<ProjectReference Include="../UltraSol.Modules.Catalog.Infrastructure/UltraSol.Modules.Catalog.Infrastructure.csproj" />
 	</ItemGroup>
 </Project>

@@ -13,5 +13,6 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <ProjectReference Include="../../src/Modules/Catalog/UltraSol.Modules.Catalog.Domain/UltraSol.Modules.Catalog.Domain.csproj" />
+    <ProjectReference Include="../../src/Modules/Catalog/UltraSol.Modules.Catalog.Application/UltraSol.Modules.Catalog.Application.csproj" />
   </ItemGroup>
 </Project>

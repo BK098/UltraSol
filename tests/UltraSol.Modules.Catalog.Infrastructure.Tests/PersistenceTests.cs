@@ -43,6 +43,23 @@ public sealed class DatabaseFixture : IAsyncLifetime
 
 public class PersistenceTests(DatabaseFixture fixture) : IClassFixture<DatabaseFixture>
 {
+    [Fact]
+    public async Task AttachedAggregateRequiresMaterializationInsideTransaction()
+    {
+        await using var db = fixture.Create();
+        await using var transaction = await db.Database.BeginTransactionAsync();
+        db.Attach(Brand.Create("Incomplete aggregate"));
+        await Assert.ThrowsAsync<InvalidOperationException>(() => db.SaveChangesAsync());
+        await transaction.RollbackAsync();
+    }
+
+    [Fact]
+    public async Task SaveWithoutTransactionIsRejected()
+    {
+        await using var db = fixture.Create();
+        await Assert.ThrowsAsync<InvalidOperationException>(() => db.SaveChangesAsync());
+    }
+
     private static string Sku() => "TEST-" + Guid.NewGuid().ToString("N");
     private static async Task CheckConstraints(CatalogDbContext db) =>
         await db.Database.ExecuteSqlRawAsync("SET CONSTRAINTS ALL IMMEDIATE; SET CONSTRAINTS ALL DEFERRED");
@@ -83,7 +100,7 @@ public class PersistenceTests(DatabaseFixture fixture) : IClassFixture<DatabaseF
         await Repo<Product>(db).AddRangeAsync([p, bundleProduct]);
         await Repo<ProductItem>(db).AddRangeAsync([item, bundle]);
         await Repo<CatalogCollection>(db).AddRangeAsync([manual, automatic]);
-        await new UnitOfWork(db, new DomainEventDispatcher([])).SaveChangesAsync(false);
+        await new CatalogUnitOfWork(db, new DomainEventDispatcher([])).SaveChangesAsync(false);
         await CheckConstraints(db);
         db.ChangeTracker.Clear();
         var loaded = await Repo<Product>(db).GetRequiredByIdAsync(p.Id);
@@ -161,7 +178,11 @@ public class PersistenceTests(DatabaseFixture fixture) : IClassFixture<DatabaseF
         await using var other = new CatalogDbContext(options);
         await other.Database.UseTransactionAsync(tx.GetDbTransaction());
         var stale = await Repo<Product>(other).GetTrackedRequiredAsync(p.Id);
-        p.AddMedia("https://example.com/a"); await db.SaveChangesAsync();
+        var previousStamp = p.ConcurrencyStamp;
+        p.AddMedia("https://example.com/a");
+        await db.SaveChangesAsync();
+        Assert.NotEqual(previousStamp, p.ConcurrencyStamp);
+        Assert.NotNull(p.UpdatedAt);
         stale.Rename("Stale");
         await Assert.ThrowsAsync<DbUpdateConcurrencyException>(() => other.SaveChangesAsync());
     }

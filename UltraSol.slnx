@@ -26,6 +26,5 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/UltraSol.Modules.Catalog.Domain.Tests/UltraSol.Modules.Catalog.Domain.Tests.csproj" />
-    <Project Path="tests/UltraSol.Modules.Catalog.Infrastructure.Tests/UltraSol.Modules.Catalog.Infrastructure.Tests.csproj" />
   </Folder>
 </Solution>

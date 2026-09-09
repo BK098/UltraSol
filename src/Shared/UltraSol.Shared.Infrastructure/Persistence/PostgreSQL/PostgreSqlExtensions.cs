@@ -1,31 +1,38 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
 namespace UltraSol.Shared.Infrastructure.Persistence.PostgreSQL;
 
 public static class PostgreSqlExtensions
 {
-    public static IServiceCollection AddPostgres<TContext>(this IServiceCollection services,
-        IConfiguration configuration, Action<NpgsqlDbContextOptionsBuilder>? configure = null)
+    public static IServiceCollection AddPostgres(this IServiceCollection services)
+    {
+        var postgreSqlOptions = services.GetOptions<PostgreSqlOptions>(PostgreSqlOptions.SectionName);
+        if (string.IsNullOrWhiteSpace(postgreSqlOptions.ConnectionString))
+        {
+            throw new InvalidOperationException("Postgres:ConnectionString is required.");
+        }
+        services.AddSingleton(postgreSqlOptions);
+        return services;
+    }
+    public static IServiceCollection AddPostgres<TContext>(this IServiceCollection services, bool runMigration = false)
         where TContext : DbContext
     {
-        services.Configure<PostgreSqlOptions>(configuration.GetSection(PostgreSqlOptions.SectionName));
-        services.AddDbContext<TContext>((provider, options) =>
+        var postgreSqlOptions = services.GetOptions<PostgreSqlOptions>(PostgreSqlOptions.SectionName);
+        services.AddDbContext<TContext>(options=>
         {
-            var settings = provider.GetRequiredService<IOptions<PostgreSqlOptions>>().Value;
-            if (string.IsNullOrWhiteSpace(settings.ConnectionString))
-            {
-                throw new InvalidOperationException("Postgres:ConnectionString is required.");
-            }
-            options.UseNpgsql(settings.ConnectionString, postgres =>
+            options.UseNpgsql(postgreSqlOptions.ConnectionString, postgres =>
             {
                 postgres.EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null);
-                configure?.Invoke(postgres);
             });
         });
+        if (runMigration)
+        {
+            using var scope = services.BuildServiceProvider().CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<TContext>();
+            dbContext.Database.Migrate();
+        }
         return services;
     }
 }

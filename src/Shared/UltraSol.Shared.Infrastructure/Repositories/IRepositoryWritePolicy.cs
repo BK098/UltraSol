@@ -6,4 +6,3 @@ public interface IRepositoryWritePolicy
     void EnsureDeleteAllowed(Type entityType);
     void EnsureBulkWriteAllowed(Type entityType);
 }
-

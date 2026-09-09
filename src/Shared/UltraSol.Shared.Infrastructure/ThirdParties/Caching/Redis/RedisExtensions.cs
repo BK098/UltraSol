@@ -10,26 +10,20 @@ namespace UltraSol.Shared.Infrastructure.ThirdParties.Caching.Redis
     {
         internal static IServiceCollection AddRedis(this IServiceCollection services, IConfiguration configuration)
         {
-            var options = configuration.GetSection(RedisOptions.SectionName).Get<RedisOptions>();
+            var options = services.GetOptions<RedisOptions>(RedisOptions.SectionName);
             if (options == null)
             {
-                throw new InvalidOperationException(
-                        "Redis configuration is missing.");
+                throw new InvalidOperationException("Redis configuration is missing.");
             }
-            services.AddOptions<RedisOptions>()
-                .Bind(configuration.GetSection(RedisOptions.SectionName))
+            services.AddOptions<RedisOptions>().Bind(configuration.GetSection(RedisOptions.SectionName))
                 .Validate(
                     options => !string.IsNullOrWhiteSpace(options.ConnectionString),
                     "Redis ConnectionString is required.")
                 .ValidateOnStart();
             services.AddSingleton<IConnectionMultiplexer>(sp =>
             {
-                var options = sp
-                    .GetRequiredService<IOptions<RedisOptions>>()
-                    .Value;
-
-                return ConnectionMultiplexer.Connect(
-                    options.ConnectionString);
+                var options = sp.GetRequiredService<IOptions<RedisOptions>>().Value;
+                return ConnectionMultiplexer.Connect(options.ConnectionString);
             });
             services.AddSingleton<ICacheService, RedisCacheService>();
             return services;

@@ -1,20 +1,32 @@
 using Microsoft.EntityFrameworkCore;
-using UltraSol.Shared.Infrastructure.Repositories;
 using UltraSol.Modules.Catalog.Domain.Catalog.Brands;
 using UltraSol.Modules.Catalog.Domain.Catalog.Categories;
 using UltraSol.Modules.Catalog.Domain.Catalog.Collections;
 using UltraSol.Modules.Catalog.Domain.Catalog.Collections.ValueObjects;
-using UltraSol.Modules.Catalog.Domain.Catalog.Products;
 using UltraSol.Modules.Catalog.Domain.Catalog.ProductItems;
 using UltraSol.Modules.Catalog.Domain.Catalog.ProductItems.ValueObjects;
+using UltraSol.Modules.Catalog.Domain.Catalog.Products;
 using UltraSol.Shared.Domain.Common.Entities;
+using UltraSol.Shared.Infrastructure.Persistence;
+using UltraSol.Shared.Infrastructure.Persistence.Extensions;
+using UltraSol.Shared.Infrastructure.Repositories;
 using CatalogCollection = UltraSol.Modules.Catalog.Domain.Catalog.Collections.Collection;
 
 namespace UltraSol.Modules.Catalog.Infrastructure.Persistence;
 
-public sealed class CatalogDbContext(DbContextOptions<CatalogDbContext> options) : DbContext(options), IRepositoryMaterializer, ITransactionPreparation, IRepositoryWritePolicy
+public static class Schema
 {
-    private readonly HashSet<object> _loaded = new(ReferenceEqualityComparer.Instance);
+    public const string Name = "catalog";
+}
+public sealed class CatalogDbContext : ModuleDbContext<CatalogDbContext>, ITransactionPreparation, IRepositoryWritePolicy
+{
+    public CatalogDbContext(DbContextOptions<CatalogDbContext> options) : base(options)
+    {
+    }
+    protected override bool RequireTransaction => true;
+    protected override bool AllowAggregateDeletion => false;
+    protected override bool RequireMaterializedAggregates => true;
+
     public DbSet<Product> Products => Set<Product>();
     public DbSet<ProductItem> ProductItems => Set<ProductItem>();
     public DbSet<Category> Categories => Set<Category>();
@@ -25,18 +37,17 @@ public sealed class CatalogDbContext(DbContextOptions<CatalogDbContext> options)
     {
         modelBuilder.HasDefaultSchema(Schema.Name);
         CatalogModel.Configure(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
     }
 
     internal void AddAggregate<T>(T aggregate) where T : AggregateRoot
     {
         Set<T>().Add(aggregate);
-        _loaded.Add(aggregate);
+        MarkMaterialized(aggregate);
     }
 
-    internal async Task HydrateAsync(AggregateRoot root, CancellationToken ct)
+    protected override async Task HydrateAggregateAsync(AggregateRoot root, CancellationToken ct)
     {
-        if (_loaded.Contains(root)) return;
-        if (Entry(root).State == EntityState.Added) { _loaded.Add(root); return; }
         var tracking = Entry(root).State != EntityState.Detached;
         IQueryable<T> Rows<T>() where T : class => tracking ? Set<T>() : Set<T>().AsNoTracking();
         switch (root)
@@ -75,11 +86,7 @@ public sealed class CatalogDbContext(DbContextOptions<CatalogDbContext> options)
                         : null);
                 break;
         }
-        if (tracking) _loaded.Add(root);
     }
-
-    public Task MaterializeAsync(object entity, CancellationToken cancellationToken = default) =>
-        entity is AggregateRoot root ? HydrateAsync(root, cancellationToken) : Task.CompletedTask;
 
     public Task PrepareTransactionAsync(CancellationToken cancellationToken = default) =>
         Database.ExecuteSqlRawAsync("SELECT pg_advisory_xact_lock(731004, 1)", cancellationToken);
@@ -89,21 +96,8 @@ public sealed class CatalogDbContext(DbContextOptions<CatalogDbContext> options)
     public void EnsureBulkWriteAllowed(Type entityType) =>
         throw new InvalidOperationException("Bulk writes bypass Catalog aggregate rules and concurrency tracking.");
 
-    public override int SaveChanges(bool acceptAllChangesOnSuccess) =>
-        throw new NotSupportedException("Use SaveChangesAsync inside a Catalog transaction.");
-
-    public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+    protected override async Task PrepareAggregatesAsync(IReadOnlyList<AggregateRoot> roots, CancellationToken cancellationToken)
     {
-        if (Database.CurrentTransaction is null)
-            throw new InvalidOperationException("Catalog writes require IUnitOfWork or an explicit transaction.");
-        if (!acceptAllChangesOnSuccess)
-            throw new NotSupportedException("Catalog SaveChanges requires acceptAllChangesOnSuccess.");
-        var roots = ChangeTracker.Entries<AggregateRoot>().Select(x => x.Entity).ToArray();
-        foreach (var root in roots.Where(x => Entry(x).State == EntityState.Added)) _loaded.Add(root);
-        if (roots.Any(x => Entry(x).State == EntityState.Deleted))
-            throw new InvalidOperationException("Catalog aggregate deletion is not supported; use Archive.");
-        if (roots.Any(x => !_loaded.Contains(x)))
-            throw new InvalidOperationException("Load/add complete aggregates through Catalog repositories before saving.");
         var owners = new Dictionary<object, AggregateRoot>(ReferenceEqualityComparer.Instance);
         foreach (var root in roots)
         {
@@ -139,11 +133,18 @@ public sealed class CatalogDbContext(DbContextOptions<CatalogDbContext> options)
         var dirty = new HashSet<AggregateRoot>();
         foreach (var entry in ChangeTracker.Entries().Where(x => x.State is EntityState.Added or EntityState.Modified or EntityState.Deleted).ToArray())
         {
-            if (owners.TryGetValue(entry.Entity, out var root)) dirty.Add(root);
+            if (owners.TryGetValue(entry.Entity, out var root))
+            {
+                dirty.Add(root);
+            }
             else if (entry.Entity is ProductMedia or Variation)
+            {
                 AddOwner<Product>("ProductId", entry);
+            }
             else if (entry.Entity is ProductItemMedia)
+            {
                 AddOwner<ProductItem>("ProductItemId", entry);
+            }
             else if (entry.Entity is VariationOption)
             {
                 var id = entry.Property("VariationId").CurrentValue;
@@ -162,8 +163,14 @@ public sealed class CatalogDbContext(DbContextOptions<CatalogDbContext> options)
         var now = DateTimeOffset.UtcNow;
         foreach (var root in dirty)
         {
-            if (Entry(root).State == EntityState.Added) root.MarkCreated(root.CreatedBy, now);
-            else root.MarkUpdated(root.UpdatedBy, now);
+            if (Entry(root).State == EntityState.Added)
+            {
+                root.MarkCreated(root.CreatedBy, now);
+            }
+            else
+            {
+                root.MarkUpdated(root.UpdatedBy, now);
+            }
         }
 
         // Clear previous primary flags before EF sets new ones (partial unique indexes are immediate).
@@ -171,17 +178,20 @@ public sealed class CatalogDbContext(DbContextOptions<CatalogDbContext> options)
         {
             var primary = p.Media.SingleOrDefault(x => x.IsPrimary);
             if (primary is not null)
+            {
                 await Database.ExecuteSqlInterpolatedAsync(
                     $"UPDATE catalog.product_media SET is_primary = false WHERE product_id = {p.Id} AND id <> {primary.Id} AND is_primary", cancellationToken);
+            }
         }
         foreach (var i in dirty.OfType<ProductItem>())
         {
             var primary = i.Media.SingleOrDefault(x => x.IsPrimary);
             if (primary is not null)
+            {
                 await Database.ExecuteSqlInterpolatedAsync(
                     $"UPDATE catalog.product_item_media SET is_primary = false WHERE product_item_id = {i.Id} AND id <> {primary.Id} AND is_primary", cancellationToken);
+            }
         }
-        return await base.SaveChangesAsync(true, cancellationToken);
     }
 
     private void Sync<T>(AggregateRoot root, IEnumerable<T> current, IEnumerable<T> desired,
@@ -195,7 +205,11 @@ public sealed class CatalogDbContext(DbContextOptions<CatalogDbContext> options)
                 Entry(existing).CurrentValues.SetValues(row);
                 owners[existing] = root;
             }
-            else { Set<T>().Add(row); owners[row] = root; }
+            else
+            {
+                Set<T>().Add(row);
+                owners[row] = root;
+            }
         }
         foreach (var row in old.Values) { Set<T>().Remove(row); owners[row] = root; }
     }

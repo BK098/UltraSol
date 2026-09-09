@@ -1,7 +1,8 @@
-using UltraSol.Modules.Catalog.Domain.Catalog.ProductItems.ValueObjects;
 using UltraSol.Modules.Catalog.Domain.Catalog.Brands;
 using UltraSol.Modules.Catalog.Domain.Catalog.Categories;
+using UltraSol.Modules.Catalog.Domain.Catalog.ProductItems.ValueObjects;
 using UltraSol.Shared.Domain.Common.Entities;
+using UltraSol.Shared.Domain.Common.Events;
 using UltraSol.Shared.Domain.Common.Exceptions;
 using UltraSol.Shared.Domain.Common.Guards;
 
@@ -97,6 +98,7 @@ public sealed class Product : AggregateRoot
             throw new DomainException("Create at least one item before publishing.");
         }
         Status = ProductStatus.Published;
+        AddDomainEvent(new ProductPublished(Id, Name));
     }
     public void Unpublish()
     {
@@ -259,4 +261,6 @@ public sealed class Product : AggregateRoot
     {
         throw new DomainException("Catalog aggregates cannot be restored.");
     }
+
+    public sealed record ProductPublished(Guid ProductId, string Name) : DomainEvent;
 }

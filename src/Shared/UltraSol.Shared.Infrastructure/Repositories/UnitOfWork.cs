@@ -39,7 +39,7 @@ public sealed class EfTransaction : ITransaction
     }
 }
 
-public class UnitOfWork(DbContext context, IDomainEventDispatcher domainEventDispatcher) : IUnitOfWork
+public abstract class UnitOfWork(DbContext context, IDomainEventDispatcher domainEventDispatcher) : IUnitOfWork
 {
     private readonly List<(IHasDomainEvents Owner, IDomainEvent Event)> _pendingEvents = [];
     private bool _ownsTransaction;
