@@ -15,7 +15,7 @@ public sealed class Collection : AggregateRoot
     private Collection() { Name = null!; }
     public string Name { get; private set; }
     public string? Description { get; private set; }
-    public bool IsArchived { get; private set; }
+    public CollectionStatus Status { get; private set; } = CollectionStatus.Draft;
     private readonly List<CollectionEntry> _entries = [];
     internal void LoadMembership(IEnumerable<CollectionEntry> entries, CollectionRuleSet? rules)
     {
@@ -95,7 +95,7 @@ public sealed class Collection : AggregateRoot
     public bool Matches(Product product)
     {
         ArgumentNullException.ThrowIfNull(product);
-        if (IsArchived || product.Status != ProductStatus.Published)
+        if (Status != CollectionStatus.Published || product.Status != ProductStatus.Published)
         {
             return false;
         }
@@ -104,9 +104,27 @@ public sealed class Collection : AggregateRoot
             : Rules!.Matches(product);
     }
 
+    public void Publish()
+    {
+        if (Status is not (CollectionStatus.Draft or CollectionStatus.Unpublished))
+        {
+            throw new DomainException("Only Draft or Unpublished collections can be published.");
+        }
+        Status = CollectionStatus.Published;
+    }
+
+    public void Unpublish()
+    {
+        if (Status != CollectionStatus.Published)
+        {
+            throw new DomainException("Only Published collections can be unpublished.");
+        }
+        Status = CollectionStatus.Unpublished;
+    }
+
     public void Archive()
     {
-        IsArchived = true;
+        Status = CollectionStatus.Archived;
     }
 
     private void ReplaceEntries(Guid[] ids)
@@ -139,7 +157,7 @@ public sealed class Collection : AggregateRoot
 
     internal void EnsureNotArchived()
     {
-        if (IsArchived)
+        if (Status == CollectionStatus.Archived)
         {
             throw new DomainException("Archived Collection cannot be modified.");
         }

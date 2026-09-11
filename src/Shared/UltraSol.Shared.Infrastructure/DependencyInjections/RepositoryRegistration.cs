@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using UltraSol.Shared.Domain.Common.Repositories;
 using UltraSol.Shared.Infrastructure.Repositories;
+using UltraSol.Shared.Application.Behaviors;
 
 namespace UltraSol.Shared.Infrastructure.DependencyInjections
 {
@@ -15,7 +17,12 @@ namespace UltraSol.Shared.Infrastructure.DependencyInjections
 
         public static IServiceCollection AddRegistration(this IServiceCollection services, Assembly[] assemblies)
         {
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies));
+            services.AddMediatR(configuration =>
+            {
+                configuration.RegisterServicesFromAssemblies(assemblies);
+                configuration.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            });
+            services.AddValidatorsFromAssemblies(assemblies, ServiceLifetime.Scoped, includeInternalTypes: true);
 
             #region Repository
             var implementationTypes = assemblies

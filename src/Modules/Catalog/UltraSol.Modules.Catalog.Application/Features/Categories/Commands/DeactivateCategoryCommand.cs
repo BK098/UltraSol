@@ -1,25 +1,29 @@
-﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UltraSol.Shared.Application.Messaging.Commands;
-using UltraSol.Shared.Application.Responses;
+﻿//using FluentValidation;
+//using UltraSol.Modules.Catalog.Domain.Abstractions;
+//using UltraSol.Modules.Catalog.Domain.Repositories;
+//using UltraSol.Shared.Application.Messaging.Commands;
+//using UltraSol.Shared.Application.Responses;
 
-namespace UltraSol.Modules.Catalog.Application.Features.Categories.Commands;
+//namespace UltraSol.Modules.Catalog.Application.Features.Categories.Commands;
 
-public sealed record DeactivateCategoryDto(string Name);
-public sealed record DeactivateCategoryCommand(DeactivateCategoryDto Model) : ICommand<ApiResult<object>>;
-public sealed class DeactivateCategoryValidator : AbstractValidator<DeactivateCategoryCommand>
-{
-    public DeactivateCategoryValidator()
-    {
-    }
-}
-internal sealed class DeactivateCategoryCommandHandler : ICommandHandler<DeactivateCategoryCommand, ApiResult<object>>
-{
-    public Task<ApiResult<object>> Handle(DeactivateCategoryCommand request, CancellationToken cancellationToken)
-    {
-        var model = request.Model;
-        throw new NotImplementedException();
-    }
-}
+//public sealed record DeactivateCategoryCommand(Guid CategoryId) : ICommand<ApiResult<object>>;
+//public sealed class DeactivateCategoryValidator : AbstractValidator<DeactivateCategoryCommand>
+//{
+//    public DeactivateCategoryValidator()
+//    {
+//    }
+//}
+//internal sealed class DeactivateCategoryCommandHandler(ICategoryRepository categories, ICatalogUnitOfWork unitOfWork)
+//    : ICommandHandler<DeactivateCategoryCommand, ApiResult<object>>
+//{
+//    public async Task<ApiResult<object>> Handle(DeactivateCategoryCommand request, CancellationToken cancellationToken)
+//    {
+//        var categoryId = request.CategoryId;
+//        return await unitOfWork.ExecuteInTransactionAsync(async ct =>
+//        {
+//            var category = await categories.GetTrackedRequiredAsync(categoryId, ct);
+//            category.Deactivate();
+//            return ApiResultBuilder.Success<object>("Category deactivated successfully");
+//        }, cancellationToken);
+//    }
+//}

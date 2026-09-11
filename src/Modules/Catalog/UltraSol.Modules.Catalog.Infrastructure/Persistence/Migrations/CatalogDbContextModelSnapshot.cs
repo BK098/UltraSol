@@ -51,6 +51,16 @@ namespace UltraSol.Modules.Catalog.Infrastructure.Persistence.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("is_archived");
 
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true)
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("LogoUrl")
+                        .HasColumnType("text")
+                        .HasColumnName("logo_url");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text")
@@ -124,7 +134,7 @@ namespace UltraSol.Modules.Catalog.Infrastructure.Persistence.Migrations
                         });
                 });
 
-            modelBuilder.Entity("UltraSol.Modules.Catalog.Domain.Catalog.Collections.Collection", b =>
+modelBuilder.Entity("UltraSol.Modules.Catalog.Domain.Catalog.Collections.Collection", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid")
@@ -148,9 +158,9 @@ namespace UltraSol.Modules.Catalog.Infrastructure.Persistence.Migrations
                         .HasColumnType("text")
                         .HasColumnName("description");
 
-                    b.Property<bool>("IsArchived")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_archived");
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -215,6 +225,12 @@ namespace UltraSol.Modules.Catalog.Infrastructure.Persistence.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("character varying(64)")
                         .HasColumnName("sku");
+
+                    b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(1)
+                        .HasColumnName("status");
 
                     b.Property<bool>("StoredIsBundle")
                         .HasColumnType("boolean")

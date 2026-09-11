@@ -23,14 +23,14 @@ namespace UltraSol.Shared.Application.Responses
         }
         public static ApiResult<T> Existed<T>(string? message = null, string? traceId = null)
         {
-            if (!string.IsNullOrEmpty(message))
-            {
-                message += " Was/Were Existed";
-            }
-            else
-            {
-                message = "Existed";
-            }
+            //if (!string.IsNullOrEmpty(message))
+            //{
+            //    message += " Was/Were Existed";
+            //}
+            //else
+            //{
+            //    message = "Existed";
+            //}
             return new ApiResult<T>(
                 isSuccess: false,
                 message: message,

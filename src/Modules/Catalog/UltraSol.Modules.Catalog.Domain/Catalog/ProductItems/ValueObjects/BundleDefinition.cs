@@ -32,4 +32,43 @@ public sealed class BundleDefinition : ValueObject
     {
         return Components.Cast<object?>();
     }
+
+    internal BundleDefinition Add(Guid ownerId, ProductItem item, int quantity)
+    {
+        ArgumentNullException.ThrowIfNull(item);
+        if (item.Id == ownerId || item.IsBundle || item.Status == ProductItemStatus.Archived)
+        {
+            throw new DomainException("Component must be a non-archived regular item other than the bundle itself.");
+        }
+        if (Components.Any(x => x.ProductItemId == item.Id))
+        {
+            throw new DomainException("Bundle components must be unique.");
+        }
+        return new BundleDefinition([.. Components.Append(new BundleComponent(item.Id, quantity)).OrderBy(x => x.ProductItemId)]);
+    }
+
+    internal BundleDefinition ChangeQuantity(Guid componentItemId, int quantity)
+    {
+        EnsureContains(componentItemId);
+        var replacement = new BundleComponent(componentItemId, quantity);
+        return new BundleDefinition([.. Components.Select(x => x.ProductItemId == componentItemId ? replacement : x)]);
+    }
+
+    internal BundleDefinition Remove(Guid componentItemId)
+    {
+        EnsureContains(componentItemId);
+        if (Components.Count == 1)
+        {
+            throw new DomainException("A bundle requires at least one component.");
+        }
+        return new BundleDefinition([.. Components.Where(x => x.ProductItemId != componentItemId)]);
+    }
+
+    private void EnsureContains(Guid componentItemId)
+    {
+        if (!Components.Any(x => x.ProductItemId == componentItemId))
+        {
+            throw new DomainException("Component does not belong to this bundle.");
+        }
+    }
 }

@@ -21,11 +21,44 @@ public sealed class Brand : AggregateRoot
     }
     public void Archive()
     {
+        if (IsArchived)
+        {
+            throw new DomainException("Brand is already archived.");
+        }
         IsArchived = true;
+        IsActive = false;
     }
     public string Name { get; private set; }
     public string? Description { get; private set; }
+    public string? LogoUrl { get; private set; }
+    public bool IsActive { get; private set; } = true;
     public bool IsArchived { get; private set; }
+
+    public void Activate()
+    {
+        EnsureNotArchived();
+        if (IsActive)
+        {
+            throw new DomainException("Brand is already active.");
+        }
+        IsActive = true;
+    }
+
+    public void Deactivate()
+    {
+        EnsureNotArchived();
+        if (!IsActive)
+        {
+            throw new DomainException("Brand is already inactive.");
+        }
+        IsActive = false;
+    }
+
+    public void UpdateLogo(string logoUrl)
+    {
+        EnsureNotArchived();
+        LogoUrl = Guard.MediaUrl(logoUrl);
+    }
 
     public void Rename(string name)
     {

@@ -1,18 +1,18 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using UltraSol.Shared.Application;
 using UltraSol.Shared.Application.Responses;
 using UltraSol.Shared.Domain.Common.Repositories;
 using UltraSol.Shared.Infrastructure.Api;
 using UltraSol.Shared.Infrastructure.Exceptions;
 using UltraSol.Shared.Infrastructure.Persistence.PostgreSQL;
 using UltraSol.Shared.Infrastructure.Repositories;
-using UltraSol.Shared.Infrastructure.ThirdParties.Caching.Redis;
+//using UltraSol.Shared.Infrastructure.ThirdParties.Caching.Redis;
 
 [assembly: InternalsVisibleTo("UltraSol.Bootstrappers")]
 namespace UltraSol.Shared.Infrastructure
@@ -21,9 +21,8 @@ namespace UltraSol.Shared.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration, Assembly[] assemblies)
         {
-            services.AddRedis(configuration);
-            services.AddPostgres();
-            services.AddApplication();
+            services.AddProblemDetails();
+            services.AddExceptionHandler<GlobalExceptionHandler>();
             services.AddControllers()
                 .ConfigureApplicationPartManager(manager =>
                 {
@@ -46,25 +45,42 @@ namespace UltraSol.Shared.Infrastructure
                 };
             });
             services.AddEndpointsApiExplorer();
-            services.AddExceptionHandler<GlobalExceptionHandler>();
-
+            services.AddSwaggerGen(options =>
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "UltraSol API", Version = "v1" }));
+            //services.AddRedis();
+            services.AddPostgres();
             services.TryAddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Frontend", policy =>
+                {
+                    var origins = configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
+                        ?? ["http://localhost:5173"];
+                    policy
+                        .WithOrigins(origins)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
             return services;
         }
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
         {
+            app.UseExceptionHandler();
+            app.UseSwagger();
+            app.UseSwaggerUI();
             return app;
         }
        
-        public static T GetOptions<T>(this IServiceCollection services, string sectionName) where T : new()
+        internal static TOptions GetOptions<TOptions>(this IServiceCollection services, string sectionName) 
+            where TOptions : class, new()
         {
             using var serviceProvider = services.BuildServiceProvider();
             var configuration = serviceProvider.GetRequiredService<IConfiguration>();
             var section = configuration.GetSection(sectionName);
-            var options = new T();
+            var options = new TOptions();
             section.Bind(options);
-
             return options;
         }
     }

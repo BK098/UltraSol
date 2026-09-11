@@ -1,22 +1,31 @@
-﻿using FluentValidation;
+using FluentValidation;
+using UltraSol.Modules.Catalog.Domain.Abstractions;
+using UltraSol.Modules.Catalog.Domain.Repositories;
 using UltraSol.Shared.Application.Messaging.Commands;
 using UltraSol.Shared.Application.Responses;
 
 namespace UltraSol.Modules.Catalog.Application.Features.Variations.Commands;
 
-public sealed record RemoveVariationOptionDto(string Name);
-public sealed record RemoveVariationOptionCommand(RemoveVariationOptionDto Model) : ICommand<ApiResult<object>>;
+public sealed record RemoveVariationOptionCommand(Guid ProductId, Guid VariationId, Guid OptionId) : ICommand<ApiResult<object>>;
 public sealed class RemoveVariationOptionValidator : AbstractValidator<RemoveVariationOptionCommand>
 {
     public RemoveVariationOptionValidator()
     {
+        RuleFor(x => x.ProductId)
+            .NotEmpty();
+        RuleFor(x => x.VariationId)
+            .NotEmpty();
+        RuleFor(x => x.OptionId)
+            .NotEmpty();
     }
 }
-internal sealed class RemoveVariationOptionCommandHandler : ICommandHandler<RemoveVariationOptionCommand, ApiResult<object>>
+internal sealed class RemoveVariationOptionCommandHandler(IProductRepository products, ICatalogUnitOfWork unitOfWork)
+    : ICommandHandler<RemoveVariationOptionCommand, ApiResult<object>>
 {
-    public Task<ApiResult<object>> Handle(RemoveVariationOptionCommand request, CancellationToken cancellationToken)
+    public Task<ApiResult<object>> Handle(RemoveVariationOptionCommand request, CancellationToken cancellationToken) => unitOfWork.ExecuteInTransactionAsync(async ct =>
     {
-        var model = request.Model;
-        throw new NotImplementedException();
-    }
+        var product = await products.GetTrackedRequiredAsync(request.ProductId, ct);
+        product.RemoveVariationOption(request.VariationId, request.OptionId);
+        return ApiResultBuilder.Success<object>(request.VariationId);
+    }, cancellationToken);
 }

@@ -1,0 +1,5302 @@
+{
+  "brands": [
+    {
+      "key": "brand-1",
+      "name": "Mộc Wear",
+      "description": "Thương hiệu giả lập phục vụ dữ liệu mẫu Catalog.",
+      "media": ""
+    },
+    {
+      "key": "brand-2",
+      "name": "Sông Studio",
+      "description": "Thương hiệu giả lập phục vụ dữ liệu mẫu Catalog.",
+      "media": ""
+    },
+    {
+      "key": "brand-3",
+      "name": "Đồi Outdoor",
+      "description": "Thương hiệu giả lập phục vụ dữ liệu mẫu Catalog.",
+      "media": ""
+    },
+    {
+      "key": "brand-4",
+      "name": "Nắng Active",
+      "description": "Thương hiệu giả lập phục vụ dữ liệu mẫu Catalog.",
+      "media": ""
+    },
+    {
+      "key": "brand-5",
+      "name": "Gió Essentials",
+      "description": "Thương hiệu giả lập phục vụ dữ liệu mẫu Catalog.",
+      "media": ""
+    },
+    {
+      "key": "brand-6",
+      "name": "Lá Textile",
+      "description": "Thương hiệu giả lập phục vụ dữ liệu mẫu Catalog.",
+      "media": ""
+    },
+    {
+      "key": "brand-7",
+      "name": "Mây Urban",
+      "description": "Thương hiệu giả lập phục vụ dữ liệu mẫu Catalog.",
+      "media": ""
+    },
+    {
+      "key": "brand-8",
+      "name": "Biển Sport",
+      "description": "Thương hiệu giả lập phục vụ dữ liệu mẫu Catalog.",
+      "media": ""
+    },
+    {
+      "key": "brand-9",
+      "name": "Đá Trek",
+      "description": "Thương hiệu giả lập phục vụ dữ liệu mẫu Catalog.",
+      "media": ""
+    },
+    {
+      "key": "brand-10",
+      "name": "Sen Living",
+      "description": "Thương hiệu giả lập phục vụ dữ liệu mẫu Catalog.",
+      "media": ""
+    }
+  ],
+  "categories": [
+    {
+      "key": "fashion",
+      "name": "Thời trang",
+      "description": "Trang phục và phụ kiện hằng ngày.",
+      "parent": null
+    },
+    {
+      "key": "home",
+      "name": "Nhà cửa",
+      "description": "Đồ dùng cho không gian sống.",
+      "parent": null
+    },
+    {
+      "key": "category-1",
+      "name": "Áo thun",
+      "description": "Các sản phẩm áo thun.",
+      "parent": "fashion"
+    },
+    {
+      "key": "category-2",
+      "name": "Áo sơ mi",
+      "description": "Các sản phẩm áo sơ mi.",
+      "parent": "fashion"
+    },
+    {
+      "key": "category-3",
+      "name": "Quần",
+      "description": "Các sản phẩm quần.",
+      "parent": "fashion"
+    },
+    {
+      "key": "category-4",
+      "name": "Áo khoác",
+      "description": "Các sản phẩm áo khoác.",
+      "parent": "fashion"
+    },
+    {
+      "key": "category-5",
+      "name": "Giày",
+      "description": "Các sản phẩm giày.",
+      "parent": "fashion"
+    },
+    {
+      "key": "category-6",
+      "name": "Túi và ba lô",
+      "description": "Các sản phẩm túi và ba lô.",
+      "parent": "fashion"
+    },
+    {
+      "key": "category-7",
+      "name": "Mũ",
+      "description": "Các sản phẩm mũ.",
+      "parent": "fashion"
+    },
+    {
+      "key": "category-8",
+      "name": "Đồ thể thao",
+      "description": "Các sản phẩm đồ thể thao.",
+      "parent": "fashion"
+    },
+    {
+      "key": "category-9",
+      "name": "Phụ kiện",
+      "description": "Các sản phẩm phụ kiện.",
+      "parent": "fashion"
+    },
+    {
+      "key": "category-10",
+      "name": "Đồ vải gia đình",
+      "description": "Các sản phẩm đồ vải gia đình.",
+      "parent": "home"
+    },
+    {
+      "key": "running",
+      "name": "Giày chạy bộ",
+      "description": "Giày phục vụ chạy bộ.",
+      "parent": "category-5"
+    }
+  ],
+  "products": [
+    {
+      "key": "product-001",
+      "name": "Áo thun cotton cổ tròn",
+      "description": "Áo thun cotton cổ tròn – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-1",
+      "categories": [
+        "category-1"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P001-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-002",
+      "name": "Áo thun cổ tim",
+      "description": "Áo thun cổ tim – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-2",
+      "categories": [
+        "category-1"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P002-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P002-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-003",
+      "name": "Áo thun polo pique",
+      "description": "Áo thun polo pique – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-3",
+      "categories": [
+        "category-1"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P003-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P003-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P003-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P003-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P003-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P003-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P003-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P003-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P003-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P003-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-004",
+      "name": "Áo thun oversized",
+      "description": "Áo thun oversized – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-4",
+      "categories": [
+        "category-1"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P004-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-005",
+      "name": "Áo thun sọc ngang",
+      "description": "Áo thun sọc ngang – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-5",
+      "categories": [
+        "category-1"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P005-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P005-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-006",
+      "name": "Áo thun tay dài",
+      "description": "Áo thun tay dài – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-6",
+      "categories": [
+        "category-1"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P006-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P006-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P006-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P006-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P006-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P006-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P006-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P006-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P006-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P006-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-007",
+      "name": "Áo thun thể thao thoáng khí",
+      "description": "Áo thun thể thao thoáng khí – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-7",
+      "categories": [
+        "category-1"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P007-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-008",
+      "name": "Áo thun raglan",
+      "description": "Áo thun raglan – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-8",
+      "categories": [
+        "category-1"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P008-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P008-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-009",
+      "name": "Áo thun cổ trụ",
+      "description": "Áo thun cổ trụ – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-9",
+      "categories": [
+        "category-1"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P009-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P009-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P009-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P009-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P009-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P009-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P009-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P009-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P009-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P009-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-010",
+      "name": "Áo thun linen pha",
+      "description": "Áo thun linen pha – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-10",
+      "categories": [
+        "category-1"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P010-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-011",
+      "name": "Áo sơ mi Oxford",
+      "description": "Áo sơ mi Oxford – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-1",
+      "categories": [
+        "category-2"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P011-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-012",
+      "name": "Áo sơ mi linen",
+      "description": "Áo sơ mi linen – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-2",
+      "categories": [
+        "category-2"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P012-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P012-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-013",
+      "name": "Áo sơ mi denim",
+      "description": "Áo sơ mi denim – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-3",
+      "categories": [
+        "category-2"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P013-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P013-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P013-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P013-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P013-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P013-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P013-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P013-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P013-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P013-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-014",
+      "name": "Áo sơ mi flannel",
+      "description": "Áo sơ mi flannel – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-4",
+      "categories": [
+        "category-2"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P014-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-015",
+      "name": "Áo sơ mi cổ Cuba",
+      "description": "Áo sơ mi cổ Cuba – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-5",
+      "categories": [
+        "category-2"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P015-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P015-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-016",
+      "name": "Áo sơ mi công sở",
+      "description": "Áo sơ mi công sở – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-6",
+      "categories": [
+        "category-2"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P016-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P016-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P016-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P016-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P016-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P016-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P016-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P016-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P016-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P016-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-017",
+      "name": "Áo sơ mi kẻ sọc",
+      "description": "Áo sơ mi kẻ sọc – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-7",
+      "categories": [
+        "category-2"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P017-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-018",
+      "name": "Áo sơ mi caro",
+      "description": "Áo sơ mi caro – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-8",
+      "categories": [
+        "category-2"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P018-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P018-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-019",
+      "name": "Áo sơ mi tay ngắn",
+      "description": "Áo sơ mi tay ngắn – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-9",
+      "categories": [
+        "category-2"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P019-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P019-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P019-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P019-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P019-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P019-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P019-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P019-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P019-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P019-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-020",
+      "name": "Áo sơ mi chambray",
+      "description": "Áo sơ mi chambray – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-10",
+      "categories": [
+        "category-2"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P020-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-021",
+      "name": "Quần jeans straight",
+      "description": "Quần jeans straight – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-1",
+      "categories": [
+        "category-3"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P021-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-022",
+      "name": "Quần chinos",
+      "description": "Quần chinos – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-2",
+      "categories": [
+        "category-3"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P022-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P022-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-023",
+      "name": "Quần jogger",
+      "description": "Quần jogger – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-3",
+      "categories": [
+        "category-3"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P023-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P023-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P023-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P023-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P023-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P023-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P023-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P023-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P023-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P023-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-024",
+      "name": "Quần short kaki",
+      "description": "Quần short kaki – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-4",
+      "categories": [
+        "category-3"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P024-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-025",
+      "name": "Quần cargo",
+      "description": "Quần cargo – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-5",
+      "categories": [
+        "category-3"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P025-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P025-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-026",
+      "name": "Quần linen",
+      "description": "Quần linen – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-6",
+      "categories": [
+        "category-3"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P026-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P026-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P026-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P026-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P026-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P026-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P026-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P026-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P026-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P026-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-027",
+      "name": "Quần tây slim",
+      "description": "Quần tây slim – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-7",
+      "categories": [
+        "category-3"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P027-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-028",
+      "name": "Quần legging",
+      "description": "Quần legging – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-8",
+      "categories": [
+        "category-3"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P028-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P028-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-029",
+      "name": "Quần culottes",
+      "description": "Quần culottes – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-9",
+      "categories": [
+        "category-3"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P029-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P029-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P029-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P029-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P029-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P029-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P029-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P029-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P029-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P029-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-030",
+      "name": "Quần nỉ thể thao",
+      "description": "Quần nỉ thể thao – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-10",
+      "categories": [
+        "category-3"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P030-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-031",
+      "name": "Áo khoác bomber",
+      "description": "Áo khoác bomber – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-1",
+      "categories": [
+        "category-4"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P031-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-032",
+      "name": "Áo khoác denim",
+      "description": "Áo khoác denim – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-2",
+      "categories": [
+        "category-4"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P032-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P032-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-033",
+      "name": "Áo khoác gió",
+      "description": "Áo khoác gió – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-3",
+      "categories": [
+        "category-4"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P033-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P033-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P033-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P033-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P033-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P033-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P033-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P033-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P033-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P033-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-034",
+      "name": "Áo khoác fleece",
+      "description": "Áo khoác fleece – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-4",
+      "categories": [
+        "category-4"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P034-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-035",
+      "name": "Áo khoác parka",
+      "description": "Áo khoác parka – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-5",
+      "categories": [
+        "category-4"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P035-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P035-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-036",
+      "name": "Áo blazer",
+      "description": "Áo blazer – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-6",
+      "categories": [
+        "category-4"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P036-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P036-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P036-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P036-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P036-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P036-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P036-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P036-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P036-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P036-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-037",
+      "name": "Áo cardigan",
+      "description": "Áo cardigan – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-7",
+      "categories": [
+        "category-4"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P037-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-038",
+      "name": "Áo hoodie kéo khóa",
+      "description": "Áo hoodie kéo khóa – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-8",
+      "categories": [
+        "category-4"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P038-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P038-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-039",
+      "name": "Áo khoác chống mưa",
+      "description": "Áo khoác chống mưa – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-9",
+      "categories": [
+        "category-4"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P039-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P039-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P039-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P039-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P039-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P039-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P039-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P039-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P039-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P039-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-040",
+      "name": "Áo vest chần bông",
+      "description": "Áo vest chần bông – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-10",
+      "categories": [
+        "category-4"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P040-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-041",
+      "name": "Giày chạy bộ Road",
+      "description": "Giày chạy bộ Road – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-1",
+      "categories": [
+        "category-5",
+        "running"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P041-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-042",
+      "name": "Giày chạy bộ Trail",
+      "description": "Giày chạy bộ Trail – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-2",
+      "categories": [
+        "category-5",
+        "running"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P042-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P042-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-043",
+      "name": "Giày sneaker canvas",
+      "description": "Giày sneaker canvas – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-3",
+      "categories": [
+        "category-5"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "36",
+          "37",
+          "38",
+          "39",
+          "40"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P043-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "36"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P043-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "36"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P043-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "37"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P043-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "37"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P043-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "38"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P043-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "38"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P043-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "39"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P043-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "39"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P043-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "40"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P043-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "40"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-044",
+      "name": "Giày sneaker da",
+      "description": "Giày sneaker da – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-4",
+      "categories": [
+        "category-5"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P044-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-045",
+      "name": "Giày loafer",
+      "description": "Giày loafer – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-5",
+      "categories": [
+        "category-5"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P045-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P045-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-046",
+      "name": "Giày sandal trekking",
+      "description": "Giày sandal trekking – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-6",
+      "categories": [
+        "category-5"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "36",
+          "37",
+          "38",
+          "39",
+          "40"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P046-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "36"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P046-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "36"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P046-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "37"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P046-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "37"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P046-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "38"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P046-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "38"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P046-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "39"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P046-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "39"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P046-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "40"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P046-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "40"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-047",
+      "name": "Giày slip-on",
+      "description": "Giày slip-on – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-7",
+      "categories": [
+        "category-5"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P047-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-048",
+      "name": "Giày derby",
+      "description": "Giày derby – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-8",
+      "categories": [
+        "category-5"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P048-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P048-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-049",
+      "name": "Giày hiking cổ thấp",
+      "description": "Giày hiking cổ thấp – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-9",
+      "categories": [
+        "category-5"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "36",
+          "37",
+          "38",
+          "39",
+          "40"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P049-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "36"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P049-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "36"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P049-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "37"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P049-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "37"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P049-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "38"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P049-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "38"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P049-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "39"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P049-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "39"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P049-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "40"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P049-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "40"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-050",
+      "name": "Giày bóng rổ",
+      "description": "Giày bóng rổ – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-10",
+      "categories": [
+        "category-5"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P050-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-051",
+      "name": "Ba lô đi học",
+      "description": "Ba lô đi học – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-1",
+      "categories": [
+        "category-6"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P051-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-052",
+      "name": "Ba lô laptop",
+      "description": "Ba lô laptop – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-2",
+      "categories": [
+        "category-6"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P052-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P052-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-053",
+      "name": "Túi tote canvas",
+      "description": "Túi tote canvas – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-3",
+      "categories": [
+        "category-6"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P053-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P053-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P053-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P053-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P053-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P053-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P053-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P053-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P053-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P053-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-054",
+      "name": "Túi đeo chéo",
+      "description": "Túi đeo chéo – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-4",
+      "categories": [
+        "category-6"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P054-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-055",
+      "name": "Túi du lịch cuối tuần",
+      "description": "Túi du lịch cuối tuần – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-5",
+      "categories": [
+        "category-6"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P055-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P055-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-056",
+      "name": "Túi trống thể thao",
+      "description": "Túi trống thể thao – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-6",
+      "categories": [
+        "category-6"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P056-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P056-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P056-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P056-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P056-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P056-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P056-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P056-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P056-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P056-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-057",
+      "name": "Ba lô trekking",
+      "description": "Ba lô trekking – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-7",
+      "categories": [
+        "category-6"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P057-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-058",
+      "name": "Túi đựng mỹ phẩm",
+      "description": "Túi đựng mỹ phẩm – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-8",
+      "categories": [
+        "category-6"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P058-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P058-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-059",
+      "name": "Túi đeo hông",
+      "description": "Túi đeo hông – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-9",
+      "categories": [
+        "category-6"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P059-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P059-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P059-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P059-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P059-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P059-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P059-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P059-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P059-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P059-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-060",
+      "name": "Túi rút dây",
+      "description": "Túi rút dây – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-10",
+      "categories": [
+        "category-6"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P060-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-061",
+      "name": "Mũ lưỡi trai cotton",
+      "description": "Mũ lưỡi trai cotton – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-1",
+      "categories": [
+        "category-7"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P061-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-062",
+      "name": "Mũ bucket",
+      "description": "Mũ bucket – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-2",
+      "categories": [
+        "category-7"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P062-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P062-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-063",
+      "name": "Mũ len beanie",
+      "description": "Mũ len beanie – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-3",
+      "categories": [
+        "category-7"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P063-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P063-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P063-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P063-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P063-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P063-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P063-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P063-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P063-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P063-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-064",
+      "name": "Mũ vành rộng",
+      "description": "Mũ vành rộng – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-4",
+      "categories": [
+        "category-7"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P064-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-065",
+      "name": "Mũ visor thể thao",
+      "description": "Mũ visor thể thao – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-5",
+      "categories": [
+        "category-7"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P065-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P065-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-066",
+      "name": "Mũ snapback",
+      "description": "Mũ snapback – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-6",
+      "categories": [
+        "category-7"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P066-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P066-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P066-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P066-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P066-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P066-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P066-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P066-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P066-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P066-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-067",
+      "name": "Mũ beret",
+      "description": "Mũ beret – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-7",
+      "categories": [
+        "category-7"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P067-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-068",
+      "name": "Mũ chống nắng gáy dài",
+      "description": "Mũ chống nắng gáy dài – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-8",
+      "categories": [
+        "category-7"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P068-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P068-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-069",
+      "name": "Mũ trucker",
+      "description": "Mũ trucker – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-9",
+      "categories": [
+        "category-7"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P069-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P069-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P069-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P069-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P069-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P069-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P069-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P069-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P069-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P069-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-070",
+      "name": "Mũ nồi linen",
+      "description": "Mũ nồi linen – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-10",
+      "categories": [
+        "category-7"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P070-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-071",
+      "name": "Áo chạy bộ phản quang",
+      "description": "Áo chạy bộ phản quang – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-1",
+      "categories": [
+        "category-8"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P071-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-072",
+      "name": "Quần short chạy bộ",
+      "description": "Quần short chạy bộ – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-2",
+      "categories": [
+        "category-8"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P072-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P072-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-073",
+      "name": "Áo tank tập gym",
+      "description": "Áo tank tập gym – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-3",
+      "categories": [
+        "category-8"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P073-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P073-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P073-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P073-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P073-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P073-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P073-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P073-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P073-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P073-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-074",
+      "name": "Quần yoga",
+      "description": "Quần yoga – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-4",
+      "categories": [
+        "category-8"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P074-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-075",
+      "name": "Áo bra thể thao",
+      "description": "Áo bra thể thao – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-5",
+      "categories": [
+        "category-8"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P075-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P075-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-076",
+      "name": "Áo đạp xe",
+      "description": "Áo đạp xe – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-6",
+      "categories": [
+        "category-8"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P076-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P076-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P076-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P076-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P076-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P076-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P076-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P076-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P076-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P076-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-077",
+      "name": "Quần bơi",
+      "description": "Quần bơi – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-7",
+      "categories": [
+        "category-8"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P077-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-078",
+      "name": "Áo tennis",
+      "description": "Áo tennis – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-8",
+      "categories": [
+        "category-8"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P078-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P078-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-079",
+      "name": "Quần cầu lông",
+      "description": "Quần cầu lông – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-9",
+      "categories": [
+        "category-8"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P079-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P079-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P079-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P079-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P079-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P079-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P079-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P079-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P079-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P079-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-080",
+      "name": "Áo bóng đá",
+      "description": "Áo bóng đá – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-10",
+      "categories": [
+        "category-8"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P080-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-081",
+      "name": "Khăn choàng cotton",
+      "description": "Khăn choàng cotton – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-1",
+      "categories": [
+        "category-9"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P081-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-082",
+      "name": "Khăn quàng len",
+      "description": "Khăn quàng len – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-2",
+      "categories": [
+        "category-9"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P082-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P082-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-083",
+      "name": "Găng tay giữ ấm",
+      "description": "Găng tay giữ ấm – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-3",
+      "categories": [
+        "category-9"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P083-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P083-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P083-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P083-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P083-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P083-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P083-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P083-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P083-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P083-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-084",
+      "name": "Tất cổ thấp",
+      "description": "Tất cổ thấp – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-4",
+      "categories": [
+        "category-9"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P084-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-085",
+      "name": "Tất cổ cao",
+      "description": "Tất cổ cao – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-5",
+      "categories": [
+        "category-9"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P085-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P085-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-086",
+      "name": "Thắt lưng vải",
+      "description": "Thắt lưng vải – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-6",
+      "categories": [
+        "category-9"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P086-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P086-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P086-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P086-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P086-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P086-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P086-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P086-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P086-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P086-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-087",
+      "name": "Băng đô thể thao",
+      "description": "Băng đô thể thao – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-7",
+      "categories": [
+        "category-9"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P087-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-088",
+      "name": "Ống tay chống nắng",
+      "description": "Ống tay chống nắng – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-8",
+      "categories": [
+        "category-9"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P088-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P088-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-089",
+      "name": "Khăn đa năng",
+      "description": "Khăn đa năng – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-9",
+      "categories": [
+        "category-9"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P089-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P089-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P089-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P089-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P089-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P089-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P089-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P089-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P089-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P089-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-090",
+      "name": "Tạp dề canvas",
+      "description": "Tạp dề canvas – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-10",
+      "categories": [
+        "category-9"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P090-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-091",
+      "name": "Khăn tắm cotton",
+      "description": "Khăn tắm cotton – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-1",
+      "categories": [
+        "category-10"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P091-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-092",
+      "name": "Khăn mặt sợi tre",
+      "description": "Khăn mặt sợi tre – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-2",
+      "categories": [
+        "category-10"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P092-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P092-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-093",
+      "name": "Vỏ gối linen",
+      "description": "Vỏ gối linen – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-3",
+      "categories": [
+        "category-10"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ],
+        "Kích cỡ": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P093-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P093-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XS"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P093-03",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P093-04",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "S"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P093-05",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P093-06",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "M"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P093-07",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P093-08",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "L"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P093-09",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P093-10",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng",
+            "Kích cỡ": "XL"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-094",
+      "name": "Chăn nỉ du lịch",
+      "description": "Chăn nỉ du lịch – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-4",
+      "categories": [
+        "category-10"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P094-01",
+          "media": "",
+          "selections": {},
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-095",
+      "name": "Khăn trải bàn",
+      "description": "Khăn trải bàn – sản phẩm mẫu dùng minh họa danh mục, thương hiệu và cấu hình bán hàng.",
+      "brand": "brand-5",
+      "categories": [
+        "category-10"
+      ],
+      "media": "",
+      "variations": {
+        "Màu sắc": [
+          "Đen",
+          "Trắng"
+        ]
+      },
+      "items": [
+        {
+          "sku": "SEED-P095-01",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Đen"
+          },
+          "components": []
+        },
+        {
+          "sku": "SEED-P095-02",
+          "media": "",
+          "selections": {
+            "Màu sắc": "Trắng"
+          },
+          "components": []
+        }
+      ]
+    },
+    {
+      "key": "product-096",
+      "name": "Bộ trang phục đi làm",
+      "description": "Combo gồm các ProductItem độc lập, tham chiếu bằng SKU.",
+      "brand": "brand-1",
+      "categories": [
+        "category-9"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P096-01",
+          "media": "",
+          "selections": {},
+          "components": [
+            {
+              "sku": "SEED-P011-01",
+              "quantity": 1
+            },
+            {
+              "sku": "SEED-P027-01",
+              "quantity": 1
+            },
+            {
+              "sku": "SEED-P048-01",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "product-097",
+      "name": "Bộ chạy bộ cơ bản",
+      "description": "Combo gồm các ProductItem độc lập, tham chiếu bằng SKU.",
+      "brand": "brand-2",
+      "categories": [
+        "category-9"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P097-01",
+          "media": "",
+          "selections": {},
+          "components": [
+            {
+              "sku": "SEED-P041-01",
+              "quantity": 1
+            },
+            {
+              "sku": "SEED-P071-01",
+              "quantity": 1
+            },
+            {
+              "sku": "SEED-P072-01",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "product-098",
+      "name": "Bộ du lịch cuối tuần",
+      "description": "Combo gồm các ProductItem độc lập, tham chiếu bằng SKU.",
+      "brand": "brand-3",
+      "categories": [
+        "category-9"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P098-01",
+          "media": "",
+          "selections": {},
+          "components": [
+            {
+              "sku": "SEED-P055-01",
+              "quantity": 1
+            },
+            {
+              "sku": "SEED-P069-01",
+              "quantity": 1
+            },
+            {
+              "sku": "SEED-P094-01",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "product-099",
+      "name": "Bộ phụ kiện mùa lạnh",
+      "description": "Combo gồm các ProductItem độc lập, tham chiếu bằng SKU.",
+      "brand": "brand-4",
+      "categories": [
+        "category-9"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P099-01",
+          "media": "",
+          "selections": {},
+          "components": [
+            {
+              "sku": "SEED-P063-01",
+              "quantity": 1
+            },
+            {
+              "sku": "SEED-P082-01",
+              "quantity": 1
+            },
+            {
+              "sku": "SEED-P083-01",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "product-100",
+      "name": "Bộ khăn gia đình",
+      "description": "Combo gồm các ProductItem độc lập, tham chiếu bằng SKU.",
+      "brand": "brand-5",
+      "categories": [
+        "category-10"
+      ],
+      "media": "",
+      "variations": {},
+      "items": [
+        {
+          "sku": "SEED-P100-01",
+          "media": "",
+          "selections": {},
+          "components": [
+            {
+              "sku": "SEED-P091-01",
+              "quantity": 1
+            },
+            {
+              "sku": "SEED-P092-01",
+              "quantity": 2
+            },
+            {
+              "sku": "SEED-P095-01",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "collections": [
+    {
+      "key": "everyday",
+      "name": "Lựa chọn hằng ngày",
+      "description": "Collection thủ công gồm trang phục và phụ kiện.",
+      "type": "Manual",
+      "products": [
+        "product-001",
+        "product-012",
+        "product-022",
+        "product-043",
+        "product-053",
+        "product-064",
+        "product-084"
+      ],
+      "brands": [],
+      "categories": [],
+      "matchMode": "All"
+    },
+    {
+      "key": "combos",
+      "name": "Combo tiện lợi",
+      "description": "Collection thủ công chứa đủ 5 bundle.",
+      "type": "Manual",
+      "products": [
+        "product-096",
+        "product-097",
+        "product-098",
+        "product-099",
+        "product-100"
+      ],
+      "brands": [],
+      "categories": [],
+      "matchMode": "All"
+    },
+    {
+      "key": "moc-shirts",
+      "name": "Áo Mộc Wear",
+      "description": "Tự động: thương hiệu Mộc Wear VÀ danh mục áo thun hoặc áo sơ mi.",
+      "type": "Automatic",
+      "products": [],
+      "brands": [
+        "brand-1"
+      ],
+      "categories": [
+        "category-1",
+        "category-2"
+      ],
+      "matchMode": "All"
+    },
+    {
+      "key": "active",
+      "name": "Nhịp sống năng động",
+      "description": "Tự động: thương hiệu Nắng Active HOẶC giày chạy bộ HOẶC đồ thể thao.",
+      "type": "Automatic",
+      "products": [],
+      "brands": [
+        "brand-4"
+      ],
+      "categories": [
+        "running",
+        "category-8"
+      ],
+      "matchMode": "Any"
+    }
+  ]
+}

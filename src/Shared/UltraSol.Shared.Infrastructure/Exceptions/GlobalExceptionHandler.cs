@@ -12,29 +12,30 @@ public sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logge
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
         var traceId = httpContext.TraceIdentifier;
-
         ApiResult<object> response;
-
         switch (exception)
         {
             case ValidationException validationException:
                 {
                     logger.LogWarning("Validation failed for request {TraceId}", traceId);
                     var errors = validationException.Errors
-                        .GroupBy(error => error.PropertyName.StartsWith("Request.")
-                            ? error.PropertyName["".Length..]
-                            : error.PropertyName)
-                        .ToDictionary(
-                            group => group.Key,
-                            group => group
-                                .Select(error => error.ErrorMessage)
-                                .Distinct()
-                                .ToArray());
+                    .GroupBy(error =>
+                    {
+                        var propertyName = error.PropertyName;
+                        return propertyName.Contains('.')
+                            ? propertyName.Split('.').Last()
+                            : propertyName;
+                    })
+                    .ToDictionary(
+                        group => group.Key,
+                        group => group
+                            .Select(error => error.ErrorMessage)
+                            .Distinct()
+                            .ToArray());
 
                     response = ApiResultBuilder.Validation<object>(errors, traceId: traceId);
                     break;
                 }
-
             case UnauthorizedAccessException:
                 {
                     logger.LogWarning("Unauthorized request {TraceId}", traceId);
@@ -47,13 +48,18 @@ public sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logge
                     response = ApiResultBuilder.NotFound<object>(traceId: traceId);
                 break;
                 }
+            case EntityNotFoundException:
+                {
+                    logger.LogWarning("Resource not found for request {TraceId}", traceId);
+                    response = ApiResultBuilder.NotFound<object>(traceId: traceId);
+                    break;
+                }
             case DomainException domainException:
                 {
                     logger.LogWarning(domainException, "Domain rule rejected request {TraceId}", traceId);
                     response = ApiResultBuilder.Conflict<object>(domainException.Message, traceId);
                     break;
                 }
-
             default:
                 {
                     logger.LogError(exception, "Unhandled exception for request {TraceId}", traceId);
@@ -61,7 +67,6 @@ public sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logge
                     break;
                 }
         }
-
         httpContext.Response.StatusCode = response.StatusCode;
         await httpContext.Response.WriteAsJsonAsync(response, cancellationToken);
         return true;

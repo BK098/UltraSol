@@ -1,6 +1,7 @@
 using UltraSol.Modules.Catalog.Domain.Catalog.ProductItems;
 using UltraSol.Modules.Catalog.Domain.Catalog.ProductItems.ValueObjects;
 using UltraSol.Modules.Catalog.Domain.Catalog.Products;
+using UltraSol.Modules.Catalog.Domain.Catalog.Brands;
 using UltraSol.Shared.Domain.Common.Entities;
 using UltraSol.Shared.Domain.Common.Exceptions;
 using Xunit;
@@ -11,6 +12,22 @@ public class CatalogDomainTests
 {
     private static ProductItem DefaultItem(Product? product = null, string sku = "ITEM") =>
         ProductItem.Create(product ?? Product.Create("Product"), SKU.Create(sku), []);
+
+    [Fact]
+    public void BrandLifecycleAndLogoRespectArchiveState()
+    {
+        var brand = Brand.Create("UltraSol");
+
+        brand.UpdateLogo("https://cdn.example.com/ultrasol.png");
+        brand.Deactivate();
+        brand.Activate();
+        brand.Archive();
+
+        Assert.False(brand.IsActive);
+        Assert.True(brand.IsArchived);
+        Assert.Throws<DomainException>(() => brand.Activate());
+        Assert.Throws<DomainException>(() => brand.UpdateLogo("https://cdn.example.com/new.png"));
+    }
 
     private static (Product Product, Guid Variation, Guid Option) Configured()
     {
@@ -97,6 +114,25 @@ public class CatalogDomainTests
         product.Publish();
 
         Assert.Contains(product.DomainEvents, domainEvent => domainEvent is Product.ProductPublished published && published.ProductId == product.Id);
+    }
+
+    [Fact]
+    public void ProductItemLifecycleAndSkuChangesFollowRules()
+    {
+        var item = DefaultItem(sku: "draft-item");
+
+        Assert.Equal(ProductItemStatus.Draft, item.Status);
+        item.Activate();
+        Assert.Equal(ProductItemStatus.Active, item.Status);
+        item.Deactivate();
+        item.ChangeSku(SKU.Create("new-item"));
+        Assert.Equal("NEW-ITEM", item.Sku.Value);
+        item.Archive();
+
+        Assert.Equal(ProductItemStatus.Archived, item.Status);
+        Assert.Throws<DomainException>(() => item.Activate());
+        Assert.Throws<DomainException>(() => item.ChangeSku(SKU.Create("other")));
+        Assert.Throws<DomainException>(() => item.Archive());
     }
 
     [Fact]

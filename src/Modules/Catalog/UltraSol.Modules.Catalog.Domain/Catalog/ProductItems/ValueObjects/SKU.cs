@@ -11,7 +11,10 @@ public sealed class SKU : ValueObject
     public static SKU Create(string value)
     {
         var normalized = Guard.Required(value, "SKU").ToUpperInvariant();
-        if (normalized.Length > 64) throw new DomainException("SKU cannot exceed 64 characters.");
+        if (normalized.Length > 64)
+        {
+            throw new DomainException("SKU cannot exceed 64 characters.");
+        }
         return new SKU(normalized);
     }
     protected override IEnumerable<object?> GetEqualityComponents()

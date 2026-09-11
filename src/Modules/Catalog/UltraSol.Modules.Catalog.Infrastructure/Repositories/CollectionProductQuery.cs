@@ -13,12 +13,18 @@ public sealed class CollectionProductQuery(CatalogDbContext db) : ICollectionPro
         int pageSize = 50, CancellationToken cancellationToken = default)
     {
         Guard.Id(collectionId);
-        if (afterId.HasValue) Guard.Id(afterId.Value);
-        if (pageSize is < 1 or > 200) throw new ArgumentOutOfRangeException(nameof(pageSize));
+        if (afterId.HasValue)
+        {
+            Guard.Id(afterId.Value);
+        }
+        if (pageSize is < 1 or > 200)
+        {
+            throw new ArgumentOutOfRangeException(nameof(pageSize));
+        }
         var query =
             from p in db.Products.AsNoTracking()
             from c in db.Collections.AsNoTracking()
-            where c.Id == collectionId && !c.IsArchived && p.Status == ProductStatus.Published
+            where c.Id == collectionId && c.Status == CollectionStatus.Published && p.Status == ProductStatus.Published
             let hasBrands = db.Set<RuleBrandRow>().Any(r => r.CollectionId == c.Id)
             let hasCategories = db.Set<RuleCategoryRow>().Any(r => r.CollectionId == c.Id)
             let matchesBrand = db.Set<RuleBrandRow>().Any(r => r.CollectionId == c.Id && r.BrandId == p.BrandId)
@@ -30,8 +36,10 @@ public sealed class CollectionProductQuery(CatalogDbContext db) : ICollectionPro
                     ? (!hasBrands || matchesBrand) && (!hasCategories || matchesCategory)
                     : matchesBrand || matchesCategory
             select p.Id;
-        if (afterId.HasValue) query = query.Where(id => id.CompareTo(afterId.Value) > 0);
+        if (afterId.HasValue)
+        {
+            query = query.Where(id => id.CompareTo(afterId.Value) > 0);
+        }
         return await query.OrderBy(id => id).Take(pageSize).ToListAsync(cancellationToken);
     }
 }
-

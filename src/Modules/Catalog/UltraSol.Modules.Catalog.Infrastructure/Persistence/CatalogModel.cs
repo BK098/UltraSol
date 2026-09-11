@@ -43,6 +43,7 @@ internal static class CatalogModel
         item.Property(x => x.ProductId);
         item.HasAlternateKey(x => new { x.Id, x.ProductId });
         item.Property(x => x.Sku).HasConversion(x => x.Value, x => SKU.Create(x)).HasColumnName("sku").HasMaxLength(64).IsRequired();
+        item.Property(x => x.Status).HasColumnName("status").HasDefaultValue(ProductItemStatus.Draft).IsRequired();
         item.Property(x => x.OptionSignature).HasConversion(x => x.Value, x => OptionSignature.FromStorage(x)).IsRequired();
         item.HasIndex(x => x.Sku).IsUnique();
         item.HasOne<Product>().WithMany().HasForeignKey(x => x.ProductId).OnDelete(DeleteBehavior.Restrict);
@@ -50,7 +51,8 @@ internal static class CatalogModel
         item.Navigation(x => x.Media).HasField("_media").UsePropertyAccessMode(PropertyAccessMode.Field);
         ModelConfigure.Media<ProductItemMedia>(m, "product_item_media", "ProductItemId");
 
-        ModelConfigure.Root<Brand>(m, "brands");
+        var brand = ModelConfigure.Root<Brand>(m, "brands");
+        brand.Property(x => x.IsActive).HasDefaultValue(true).IsRequired();
         var category = ModelConfigure.Root<Category>(m, "categories");
         category.HasOne<Category>().WithMany().HasForeignKey(x => x.ParentCategoryId).OnDelete(DeleteBehavior.Restrict);
         category.ToTable("categories", t => t.HasCheckConstraint("ck_category_parent", "parent_category_id IS NULL OR parent_category_id <> id"));

@@ -6,7 +6,7 @@ using UltraSol.Modules.Catalog.Domain.Catalog.Products;
 
 namespace UltraSol.Modules.Catalog.Domain.Catalog.ProductItems;
 
-/// <summary>Sellable configuration. Identity and composition are immutable after creation.</summary>
+/// <summary>Sellable configuration with immutable identity and option selections.</summary>
 public sealed class ProductItem : AggregateRoot
 {
     private ProductItem()
@@ -26,7 +26,8 @@ public sealed class ProductItem : AggregateRoot
         _media.Clear(); _media.AddRange(media);
     }
     public Guid ProductId { get; }
-    public SKU Sku { get; }
+    public SKU Sku { get; private set; }
+    public ProductItemStatus Status { get; private set; } = ProductItemStatus.Draft;
     public IReadOnlyList<OptionSelection> OptionSelections { get; private set; }
     public OptionSignature OptionSignature { get; }
     public BundleDefinition? BundleDefinition { get; private set; }
@@ -74,7 +75,73 @@ public sealed class ProductItem : AggregateRoot
             throw new DomainException("Product does not own this item.");
         }
         product.EnsureNotArchived();
+        EnsureNotArchived();
     }
+
+    public void Activate()
+    {
+        if (Status is not (ProductItemStatus.Draft or ProductItemStatus.Inactive))
+        {
+            throw new DomainException("Product item cannot be activated from its current status.");
+        }
+        Status = ProductItemStatus.Active;
+    }
+
+    public void Deactivate()
+    {
+        if (Status != ProductItemStatus.Active)
+        {
+            throw new DomainException("Only active product items can be deactivated.");
+        }
+        Status = ProductItemStatus.Inactive;
+    }
+
+    public void Archive()
+    {
+        if (Status == ProductItemStatus.Archived)
+        {
+            throw new DomainException("Product item is already archived.");
+        }
+        Status = ProductItemStatus.Archived;
+    }
+
+    public void ChangeSku(SKU sku)
+    {
+        EnsureNotArchived();
+        ArgumentNullException.ThrowIfNull(sku);
+        Sku = sku;
+    }
+
+    private void EnsureNotArchived()
+    {
+        if (Status == ProductItemStatus.Archived)
+        {
+            throw new DomainException("Archived product items cannot be modified.");
+        }
+    }
+
+    public void AddBundleComponent(Product product, ProductItem component, int quantity)
+    {
+        EnsureOwnerEditable(product);
+        BundleDefinition = RequireBundle().Add(Id, component, quantity);
+    }
+
+    public void ChangeBundleComponentQuantity(Product product, Guid componentItemId, int quantity)
+    {
+        EnsureOwnerEditable(product);
+        Guard.Id(componentItemId);
+        BundleDefinition = RequireBundle().ChangeQuantity(componentItemId, quantity);
+    }
+
+    public void RemoveBundleComponent(Product product, Guid componentItemId)
+    {
+        EnsureOwnerEditable(product);
+        Guard.Id(componentItemId);
+        BundleDefinition = RequireBundle().Remove(componentItemId);
+    }
+
+    private BundleDefinition RequireBundle() => BundleDefinition
+        ?? throw new DomainException("Product item is not a bundle.");
 
     public Guid AddMedia(Product product, string url, string? altText = null)
     {

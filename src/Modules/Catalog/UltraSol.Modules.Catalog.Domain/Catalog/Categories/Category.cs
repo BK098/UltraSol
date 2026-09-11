@@ -9,6 +9,9 @@ public sealed class Category : AggregateRoot
 {
     // Used only for persistence materialization; public creation still enforces business rules.
     private Category() { Name = null!; }
+    public string Name { get; private set; }
+    public string? Description { get; private set; }
+    public bool IsArchived { get; private set; }
     public Guid? ParentCategoryId { get; private set; }
 
     private Category(string name, string? description)
@@ -36,14 +39,10 @@ public sealed class Category : AggregateRoot
         ParentCategoryId = parentId;
     }
 
-    internal void Archive()
+    public void Archive()
     {
         IsArchived = true;
     }
-
-    public string Name { get; private set; }
-    public string? Description { get; private set; }
-    public bool IsArchived { get; private set; }
 
     public void Rename(string name)
     {
