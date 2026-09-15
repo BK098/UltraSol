@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using UltraSol.Shared.Application.Messaging.Commands;
 using UltraSol.Shared.Application.Responses;
 

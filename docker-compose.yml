@@ -1,0 +1,51 @@
+networks:
+    ultrasol_network:
+        driver: bridge
+    proxy:
+        external: true
+
+services:
+    rabbitmq:
+        image: rabbitmq:3-management
+        container_name: rabbitmq
+        hostname: rabbitmq
+        restart: always
+        healthcheck:
+            test: ["CMD", "rabbitmqctl", "status"]
+            interval: 10s
+            timeout: 5s
+            retries: 3
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        environment:
+            RABBITMQ_DEFAULT_USER: ultrasol
+            RABBITMQ_DEFAULT_PASS: ultrasol
+            RABBITMQ_DEFAULT_VHOST: vhost
+        networks:
+            - ultrasol_network
+        volumes:
+            - rabbitmq_data:/var/lib/rabbitmq
+            - rabbitmq_logs:/var/log/rabbitmq
+    redis:
+        image: redis:latest
+        container_name: redis
+        restart: always
+        ports:
+            - "6379:6379"
+        networks:
+            - ultrasol_network
+        volumes:
+            - redis_data:/data
+        environment:
+            - REDIS_PASSWORD=redis_password
+        command: ["redis-server", "--requirepass", "redis_password", "--appendonly", "yes"]
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            interval: 10s
+            timeout: 5s
+            retries: 3
+volumes:
+    rabbitmq_data:
+    rabbitmq_logs:
+    redis_data:

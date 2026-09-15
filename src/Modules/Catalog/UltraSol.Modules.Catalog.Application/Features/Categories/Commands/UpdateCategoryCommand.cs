@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using UltraSol.Modules.Catalog.Domain.Abstractions;
 using UltraSol.Modules.Catalog.Domain.Catalog.Categories;
 using UltraSol.Modules.Catalog.Domain.Repositories;

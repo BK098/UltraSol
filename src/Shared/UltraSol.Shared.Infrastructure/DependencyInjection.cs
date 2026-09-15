@@ -1,33 +1,33 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System.Reflection;
+using Microsoft.OpenApi;
 using System.Runtime.CompilerServices;
+using UltraSol.Shared.Application;
 using UltraSol.Shared.Application.Responses;
 using UltraSol.Shared.Domain.Common.Repositories;
 using UltraSol.Shared.Infrastructure.Api;
 using UltraSol.Shared.Infrastructure.Exceptions;
 using UltraSol.Shared.Infrastructure.Persistence.PostgreSQL;
 using UltraSol.Shared.Infrastructure.Repositories;
-//using UltraSol.Shared.Infrastructure.ThirdParties.Caching.Redis;
+using UltraSol.Shared.Infrastructure.ThirdParties.Caching.Redis;
+using UltraSol.Shared.Infrastructure.ThirdParties.MessageQueues.RabbitMessageQueues;
 
 [assembly: InternalsVisibleTo("UltraSol.Bootstrappers")]
 namespace UltraSol.Shared.Infrastructure
 {
     internal static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration, Assembly[] assemblies)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddProblemDetails();
             services.AddExceptionHandler<GlobalExceptionHandler>();
-            services.AddControllers()
-                .ConfigureApplicationPartManager(manager =>
-                {
-                    manager.FeatureProviders.Add(new InternalControllerFeatureProvider());
-                });
+            services.AddControllers().ConfigureApplicationPartManager(manager =>
+            {
+                manager.FeatureProviders.Add(new InternalControllerFeatureProvider());
+            });
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = context =>
@@ -45,17 +45,18 @@ namespace UltraSol.Shared.Infrastructure
                 };
             });
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen(options =>
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "UltraSol API", Version = "v1" }));
-            //services.AddRedis();
+            services.AddSwaggerGen(options => options.SwaggerDoc("v1", new OpenApiInfo { Title = "UltraSol API", Version = "v1" }));
+            services.AddApplication();
+            services.AddRedis();
             services.AddPostgres();
+            services.AddRabbitMessageQueues();
+
             services.TryAddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
             services.AddCors(options =>
             {
                 options.AddPolicy("Frontend", policy =>
                 {
-                    var origins = configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
-                        ?? ["http://localhost:5173"];
+                    var origins = configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
                     policy
                         .WithOrigins(origins)
                         .AllowAnyHeader()
@@ -70,10 +71,11 @@ namespace UltraSol.Shared.Infrastructure
             app.UseExceptionHandler();
             app.UseSwagger();
             app.UseSwaggerUI();
+            app.UseCors("Frontend");
             return app;
         }
-       
-        internal static TOptions GetOptions<TOptions>(this IServiceCollection services, string sectionName) 
+
+        internal static TOptions GetOptions<TOptions>(this IServiceCollection services, string sectionName)
             where TOptions : class, new()
         {
             using var serviceProvider = services.BuildServiceProvider();

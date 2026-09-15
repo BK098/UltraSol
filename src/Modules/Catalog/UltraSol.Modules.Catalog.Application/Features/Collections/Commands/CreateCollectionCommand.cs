@@ -10,11 +10,11 @@ using UltraSol.Shared.Application.Responses;
 namespace UltraSol.Modules.Catalog.Application.Features.Collections.Commands;
 
 public sealed record CreateCollectionDto(
-    string? Name, 
-    string? Description, 
+    string? Name,
+    string? Description,
     CollectionType Type,
-    IReadOnlyList<Guid>? BrandIds = null, 
-    IReadOnlyList<Guid>? CategoryIds = null, 
+    IReadOnlyList<Guid>? BrandIds = null,
+    IReadOnlyList<Guid>? CategoryIds = null,
     RuleMatchMode MatchMode = RuleMatchMode.All);
 public sealed record CreateCollectionCommand(CreateCollectionDto? Model) : ICommand<ApiResult<object>>;
 
@@ -23,25 +23,28 @@ public sealed class CreateCollectionValidator : AbstractValidator<CreateCollecti
     public CreateCollectionValidator()
     {
         RuleFor(x => x.Model).NotNull();
-        RuleFor(x => x.Model!.Name)
-            .Must(name => !string.IsNullOrWhiteSpace(name))
-            .WithMessage("Name is required.");
-        RuleFor(x => x.Model!.Type).IsInEnum();
-        RuleFor(x => x.Model!.MatchMode).IsInEnum();
-        RuleForEach(x => x.Model!.BrandIds!)
-            .NotEmpty()
-            .When(x => x.Model!.BrandIds is not null);
-        RuleForEach(x => x.Model!.CategoryIds!)
-            .NotEmpty()
-            .When(x => x.Model!.CategoryIds is not null);
-        RuleFor(x => x.Model)
-            .Must(model => (model!.BrandIds?.Count ?? 0) + (model.CategoryIds?.Count ?? 0) == 0)
-            .WithMessage("Manual collections cannot have automatic rules.")
-            .When(x => x.Model!.Type == CollectionType.Manual);
-        RuleFor(x => x.Model)
-            .Must(model => (model!.BrandIds?.Count ?? 0) + (model.CategoryIds?.Count ?? 0) > 0)
-            .WithMessage("Automatic collections require a brand or category rule.")
-            .When(x => x.Model!.Type == CollectionType.Automatic);
+        When(x => x.Model is not null, () =>
+        {
+            RuleFor(x => x.Model!.Name)
+                .Must(name => !string.IsNullOrWhiteSpace(name))
+                .WithMessage("Name is required.");
+            RuleFor(x => x.Model!.Type).IsInEnum();
+            RuleFor(x => x.Model!.MatchMode).IsInEnum();
+            RuleForEach(x => x.Model!.BrandIds!)
+                .NotEmpty()
+                .When(x => x.Model!.BrandIds is not null);
+            RuleForEach(x => x.Model!.CategoryIds!)
+                .NotEmpty()
+                .When(x => x.Model!.CategoryIds is not null);
+            RuleFor(x => x.Model)
+                .Must(model => (model!.BrandIds?.Count ?? 0) + (model.CategoryIds?.Count ?? 0) == 0)
+                .WithMessage("Manual collections cannot have automatic rules.")
+                .When(x => x.Model!.Type == CollectionType.Manual);
+            RuleFor(x => x.Model)
+                .Must(model => (model!.BrandIds?.Count ?? 0) + (model.CategoryIds?.Count ?? 0) > 0)
+                .WithMessage("Automatic collections require a brand or category rule.")
+                .When(x => x.Model!.Type == CollectionType.Automatic);
+        });
     }
 }
 

@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 using UltraSol.Shared.Application.Caching;
@@ -18,6 +17,7 @@ namespace UltraSol.Shared.Infrastructure.ThirdParties.Caching.Redis
                 );
             }
             services.AddSingleton(options);
+            services.AddSingleton<IOptions<RedisOptions>>(Options.Create(options));
 
             services.AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect(options.ConnectionString));
             services.AddSingleton<ICacheService, RedisCacheService>();

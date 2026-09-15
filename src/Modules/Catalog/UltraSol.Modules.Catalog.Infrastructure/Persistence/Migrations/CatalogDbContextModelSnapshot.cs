@@ -47,15 +47,15 @@ namespace UltraSol.Modules.Catalog.Infrastructure.Persistence.Migrations
                         .HasColumnType("text")
                         .HasColumnName("description");
 
-                    b.Property<bool>("IsArchived")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_archived");
-
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
                         .HasDefaultValue(true)
                         .HasColumnName("is_active");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_archived");
 
                     b.Property<string>("LogoUrl")
                         .HasColumnType("text")
@@ -134,7 +134,7 @@ namespace UltraSol.Modules.Catalog.Infrastructure.Persistence.Migrations
                         });
                 });
 
-modelBuilder.Entity("UltraSol.Modules.Catalog.Domain.Catalog.Collections.Collection", b =>
+            modelBuilder.Entity("UltraSol.Modules.Catalog.Domain.Catalog.Collections.Collection", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid")
@@ -158,14 +158,14 @@ modelBuilder.Entity("UltraSol.Modules.Catalog.Domain.Catalog.Collections.Collect
                         .HasColumnType("text")
                         .HasColumnName("description");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer")
-                        .HasColumnName("status");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("name");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
 
                     b.Property<int?>("StoredMatchMode")
                         .HasColumnType("integer")
@@ -569,6 +569,48 @@ modelBuilder.Entity("UltraSol.Modules.Catalog.Domain.Catalog.Collections.Collect
                     b.HasIndex("VariationId", "ProductId");
 
                     b.ToTable("product_item_selections", "catalog");
+                });
+
+            modelBuilder.Entity("UltraSol.Shared.Infrastructure.Messaging.InboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("ReceivedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("inbox", "catalog");
+                });
+
+            modelBuilder.Entity("UltraSol.Shared.Infrastructure.Messaging.OutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Payload")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset?>("PublishedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PublishedAt", "CreatedAt");
+
+                    b.ToTable("outbox", "catalog");
                 });
 
             modelBuilder.Entity("UltraSol.Modules.Catalog.Domain.Catalog.Categories.Category", b =>

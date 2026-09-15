@@ -1,12 +1,14 @@
 <Solution>
   <Folder Name="/Solution Items/">
+    <File Path="docker-compose.yml" />
     <File Path="Dockerfile" />
+    <File Path="src/Bootstrappers/UltraSol.Bootstrappers/appsettings.json" />
   </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/Bootstrappers/">
     <Project Path="src/Bootstrappers/UltraSol.Bootstrappers/UltraSol.Bootstrappers.csproj" />
   </Folder>
-  <Folder Name="/src/Modules/" />
+<Folder Name="/src/Modules/" />
   <Folder Name="/src/Modules/Auth/">
     <Project Path="src/Modules/Auth/UltraSol.Modules.Auth.Api/UltraSol.Modules.Auth.Api.csproj" Id="2d73dda4-6541-453c-9614-c8e8c0312566" />
     <Project Path="src/Modules/Auth/UltraSol.Modules.Auth.Application/UltraSol.Modules.Auth.Application.csproj" Id="b440c692-b21c-448b-aba7-f69451765ceb" />
@@ -19,12 +21,22 @@
     <Project Path="src/Modules/Catalog/UltraSol.Modules.Catalog.Domain/UltraSol.Modules.Catalog.Domain.csproj" Id="215724a4-1758-467c-9bcc-8f08b8c9e40d" />
     <Project Path="src/Modules/Catalog/UltraSol.Modules.Catalog.Infrastructure/UltraSol.Modules.Catalog.Infrastructure.csproj" Id="f219bef4-3367-4286-bd56-ba01b2fafeaf" />
   </Folder>
+  <Folder Name="/src/Modules/Organization/">
+    <Project Path="src/Modules/Organization/UltraSol.Modules.Organization.Api/UltraSol.Modules.Organization.Api.csproj" />
+    <Project Path="src/Modules/Organization/UltraSol.Modules.Organization.Application/UltraSol.Modules.Organization.Application.csproj" />
+    <Project Path="src/Modules/Organization/UltraSol.Modules.Organization.Domain/UltraSol.Modules.Organization.Domain.csproj" />
+    <Project Path="src/Modules/Organization/UltraSol.Modules.Organization.Infrastructure/UltraSol.Modules.Organization.Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/src/Shared/">
     <Project Path="src/Shared/UltraSol.Shared.Application/UltraSol.Shared.Application.csproj" Id="19c9258f-c85c-40ea-876b-52ed9d7b9d3a" />
     <Project Path="src/Shared/UltraSol.Shared.Domain/UltraSol.Shared.Domain.csproj" Id="430ad254-c2f1-4cf2-9255-9bd639ae340c" />
     <Project Path="src/Shared/UltraSol.Shared.Infrastructure/UltraSol.Shared.Infrastructure.csproj" Id="377fd628-63fe-442c-b74f-0659fcc27a7b" />
   </Folder>
+  <Folder Name="/src/Shared/IntegrationEvents/">
+    <Project Path="src/Shared/IntegrationEvents/UltraSol.Shared.IntegrationEvents.csproj" />
+  </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/UltraSol.Modules.Auth.Tests/UltraSol.Modules.Auth.Tests.csproj" />
     <Project Path="tests/UltraSol.Modules.Catalog.Domain.Tests/UltraSol.Modules.Catalog.Domain.Tests.csproj" />
   </Folder>
 </Solution>

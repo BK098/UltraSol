@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using UltraSol.Modules.Catalog.Domain.Abstractions;
 using UltraSol.Modules.Catalog.Domain.Catalog.Products;
 using UltraSol.Modules.Catalog.Domain.Repositories;
@@ -16,7 +16,7 @@ public sealed class ArchiveProductValidator : AbstractValidator<ArchiveProductCo
         RuleFor(x => x.ProductId).NotEmpty();
     }
 }
-internal sealed class ArchiveProductCommandHandler(IProductRepository products,ICatalogUnitOfWork unitOfWork) 
+internal sealed class ArchiveProductCommandHandler(IProductRepository products,ICatalogUnitOfWork unitOfWork)
     : ICommandHandler<ArchiveProductCommand, ApiResult<object>>
 {
     public async Task<ApiResult<object>> Handle(ArchiveProductCommand request, CancellationToken cancellationToken)

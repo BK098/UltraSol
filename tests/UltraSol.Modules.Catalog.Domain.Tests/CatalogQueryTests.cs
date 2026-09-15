@@ -101,6 +101,19 @@ public class CatalogQueryTests
             };
         };
         services.AddSingleton(proxy);
+        var client = DispatchProxy.Create<IClientCatalogReadStore, CollectionTests.TestProxy>();
+        ((CollectionTests.TestProxy)(object)client).InvokeMethod = (method, args) =>
+        {
+            if (missing)
+            {
+                throw new KeyNotFoundException("Missing catalog resource.");
+            }
+            var product = new ClientProduct(Id, "Product name", "Description", null);
+            return method.Name == "ProductsAsync"
+                ? Task.FromResult(PaginatedResult<ClientProduct>.Create([product], 1, PaginationRequest.Create(1, 10)))
+                : Task.FromResult(new ClientProductDetail(product, [new(Id, "SKU-001", null)]));
+        };
+        services.AddSingleton(client);
         return services.BuildServiceProvider();
     }
 

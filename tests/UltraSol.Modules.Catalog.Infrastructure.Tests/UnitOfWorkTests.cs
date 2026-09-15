@@ -43,13 +43,14 @@ public class UnitOfWorkTests(DatabaseFixture fixture) : IClassFixture<DatabaseFi
         }
     }
     private sealed record Event : DomainEvent;
+    private sealed class TestUnitOfWork(DbContext context, IDomainEventDispatcher dispatcher) : UnitOfWork(context, dispatcher);
     private EventContext Create() => new(new DbContextOptionsBuilder<EventContext>().UseNpgsql(fixture.Connection).Options);
 
-    [Fact]
+    [CatalogPostgresFact]
     public async Task EventsWaitUntilCommitAndRollbackKeepsEventsOnOwner()
     {
         await using var db = Create(); var dispatcher = new Dispatcher();
-        var uow = new CatalogUnitOfWork(db, dispatcher);
+        var uow = new TestUnitOfWork(db, dispatcher);
         var carrier = new Carrier { Id = 1 }; carrier.AddDomainEvent(new Event()); db.Attach(carrier);
         await using (var transaction = await uow.BeginTransactionAsync())
         {
@@ -67,24 +68,24 @@ public class UnitOfWorkTests(DatabaseFixture fixture) : IClassFixture<DatabaseFi
         Assert.Single(carrier.DomainEvents); Assert.Equal(1, dispatcher.Count);
     }
 
-    [Fact]
+    [CatalogPostgresFact]
     public async Task SaveFailureDoesNotLoseEventsOrDispatch()
     {
-        await using var db = Create(); 
-        var dispatcher = new Dispatcher(); 
-        var uow = new CatalogUnitOfWork(db, dispatcher);
+        await using var db = Create();
+        var dispatcher = new Dispatcher();
+        var uow = new TestUnitOfWork(db, dispatcher);
         var carrier = new Carrier { Id = 2 }; carrier.AddDomainEvent(new Event()); db.Attach(carrier);
         db.FailSave = true;
         await Assert.ThrowsAsync<InvalidOperationException>(() => uow.SaveChangesAsync());
         Assert.Single(carrier.DomainEvents); Assert.Equal(0, dispatcher.Count);
     }
 
-    [Fact]
+    [CatalogPostgresFact]
     public async Task HandlerFailureDoesNotReplayCommittedWork()
     {
-        await using var db = Create(); 
+        await using var db = Create();
         var dispatcher = new Dispatcher { Fail = true };
-        var uow = new CatalogUnitOfWork(db, dispatcher);
+        var uow = new TestUnitOfWork(db, dispatcher);
         var carrier = new Carrier { Id = 3 }; carrier.AddDomainEvent(new Event()); db.Attach(carrier);
         var calls = 0;
         await Assert.ThrowsAsync<InvalidOperationException>(() => uow.ExecuteInTransactionAsync(_ => { calls++; return Task.CompletedTask; }));

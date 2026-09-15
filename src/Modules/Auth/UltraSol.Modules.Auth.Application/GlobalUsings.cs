@@ -1,0 +1,1 @@
+global using UltraSol.Modules.Auth.Domain.Abstractions;

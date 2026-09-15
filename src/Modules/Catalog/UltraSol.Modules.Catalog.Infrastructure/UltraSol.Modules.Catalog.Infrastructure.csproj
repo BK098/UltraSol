@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="../../../Shared/IntegrationEvents/UltraSol.Shared.IntegrationEvents.csproj" />
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <ProjectReference Include="../UltraSol.Modules.Catalog.Application/UltraSol.Modules.Catalog.Application.csproj" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.11" PrivateAssets="all" />
@@ -12,6 +13,10 @@
     <ProjectReference Include="..\..\..\Shared\UltraSol.Shared.Infrastructure\UltraSol.Shared.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="../../../Shared/IntegrationEvents/UltraSol.Shared.IntegrationEvents.csproj" />
     <Folder Include="Persistence\Migrations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../Shared/IntegrationEvents/UltraSol.Shared.IntegrationEvents.csproj" />
   </ItemGroup>
 </Project>

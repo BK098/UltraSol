@@ -1,17 +1,13 @@
 using FluentValidation;
 using UltraSol.Modules.Catalog.Application.Reads;
-using UltraSol.Modules.Catalog.Domain.Catalog.Collections;
-using UltraSol.Modules.Catalog.Domain.Catalog.ProductItems;
-using UltraSol.Modules.Catalog.Domain.Catalog.Products;
 using UltraSol.Shared.Application.Messaging.Quries;
 using UltraSol.Shared.Application.Responses;
-using UltraSol.Shared.Domain.Common.Exceptions;
 using UltraSol.Shared.Domain.Common.Paging;
 using static UltraSol.Modules.Catalog.Application.Features.Brands.Queries.GetBrandsQuery;
 
 namespace UltraSol.Modules.Catalog.Application.Features.Brands.Queries;
 
-public sealed record GetBrandsQuery(PagedFilter? Filter, bool? IsActive = null, bool? IsArchived = null) : IQuery<ApiResult<PaginatedResult<GetBrandsQuery.Response>>>
+public sealed record GetBrandsQuery(PagedFilter? Filter, bool? IsActive = null, bool? IsArchived = null) : IQuery<ApiResult<PaginatedResult<Response>>>
 {
     public sealed record Response(Guid Id, string Name, string? LogoUrl, bool IsActive, bool IsArchived);
 }
@@ -31,9 +27,9 @@ public sealed class GetBrandsValidator : AbstractValidator<GetBrandsQuery>
     }
 }
 
-internal sealed class GetBrandsQueryHandler(ICatalogReadStore reads) : IQueryHandler<GetBrandsQuery, ApiResult<PaginatedResult<GetBrandsQuery.Response>>>
+internal sealed class GetBrandsQueryHandler(ICatalogReadStore reads) : IQueryHandler<GetBrandsQuery, ApiResult<PaginatedResult<Response>>>
 {
-    public async Task<ApiResult<PaginatedResult<GetBrandsQuery.Response>>> Handle(GetBrandsQuery request, CancellationToken ct)
+    public async Task<ApiResult<PaginatedResult<Response>>> Handle(GetBrandsQuery request, CancellationToken ct)
     {
         var page = CatalogQueryPaging.Create(request.Filter!, "Name");
         var data = await reads.BrandsAsync(page, request.IsActive, request.IsArchived, ct);

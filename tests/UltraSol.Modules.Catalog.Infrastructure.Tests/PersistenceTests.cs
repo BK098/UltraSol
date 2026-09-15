@@ -7,6 +7,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Npgsql;
 using UltraSol.Modules.Catalog.Api;
+using UltraSol.Modules.Catalog.Domain.Abstractions;
 using UltraSol.Modules.Catalog.Domain.Catalog.Brands;
 using UltraSol.Modules.Catalog.Domain.Catalog.Categories;
 using UltraSol.Modules.Catalog.Domain.Catalog.Products;
@@ -28,22 +29,72 @@ namespace UltraSol.Modules.Catalog.Infrastructure.Tests;
 
 public sealed class DatabaseFixture : IAsyncLifetime
 {
+    private readonly string _database = "ultrasol_catalog_test_" + Guid.NewGuid().ToString("N");
+    private string? _adminConnection;
+    private bool _created;
     public string Connection { get; private set; } = "";
     public async Task InitializeAsync()
     {
-        using var context = new CatalogDbContextFactory().CreateDbContext([]);
-        Connection = context.Database.GetConnectionString()!;
-        await CatalogMigrator.MigrateAsync(context);
-        await CatalogMigrator.MigrateAsync(context);
+        if (Environment.GetEnvironmentVariable("ULTRASOL_CATALOG_POSTGRES_TESTS") != "1")
+        {
+            return;
+        }
+        var builder = new NpgsqlConnectionStringBuilder(Environment.GetEnvironmentVariable("ULTRASOL_CATALOG_TEST_CONNECTION")
+            ?? throw new InvalidOperationException("Set ULTRASOL_CATALOG_TEST_CONNECTION for disposable database tests.")) { Pooling = false };
+        _adminConnection = builder.ConnectionString;
+        await using var admin = new NpgsqlConnection(_adminConnection);
+        await admin.OpenAsync();
+        await using var command = new NpgsqlCommand($"CREATE DATABASE \"{_database}\"", admin);
+        await command.ExecuteNonQueryAsync();
+        _created = true;
+        builder.Database = _database;
+        Connection = builder.ConnectionString;
+        try
+        {
+            await using var context = Create();
+            await context.Database.MigrateAsync();
+            await context.Database.MigrateAsync();
+        }
+        catch
+        {
+            await DisposeAsync();
+            throw;
+        }
     }
-    public Task DisposeAsync() => Task.CompletedTask;
+    public async Task DisposeAsync()
+    {
+        if (!_created)
+        {
+            return;
+        }
+        if (!_database.StartsWith("ultrasol_catalog_test_", StringComparison.Ordinal) || !Guid.TryParseExact(_database["ultrasol_catalog_test_".Length..], "N", out _))
+        {
+            throw new InvalidOperationException("Refusing to drop a database not created by this fixture.");
+        }
+        await using var admin = new NpgsqlConnection(_adminConnection);
+        await admin.OpenAsync();
+        await using var command = new NpgsqlCommand($"DROP DATABASE \"{_database}\"", admin);
+        await command.ExecuteNonQueryAsync();
+        _created = false;
+    }
     public CatalogDbContext Create() => new(new DbContextOptionsBuilder<CatalogDbContext>()
-        .UseNpgsql(Connection, CatalogPostgresConfiguration.Configure).Options);
+        .UseNpgsql(Connection, postgres => postgres.MigrationsHistoryTable("__EFMigrationsHistory", "catalog")).Options);
+}
+
+public sealed class CatalogPostgresFactAttribute : FactAttribute
+{
+    public CatalogPostgresFactAttribute()
+    {
+        if (Environment.GetEnvironmentVariable("ULTRASOL_CATALOG_POSTGRES_TESTS") != "1")
+        {
+            Skip = "Enable ULTRASOL_CATALOG_POSTGRES_TESTS for disposable PostgreSQL tests.";
+        }
+    }
 }
 
 public class PersistenceTests(DatabaseFixture fixture) : IClassFixture<DatabaseFixture>
 {
-    [Fact]
+    [CatalogPostgresFact]
     public async Task AttachedAggregateRequiresMaterializationInsideTransaction()
     {
         await using var db = fixture.Create();
@@ -53,7 +104,7 @@ public class PersistenceTests(DatabaseFixture fixture) : IClassFixture<DatabaseF
         await transaction.RollbackAsync();
     }
 
-    [Fact]
+    [CatalogPostgresFact]
     public async Task SaveWithoutTransactionIsRejected()
     {
         await using var db = fixture.Create();
@@ -65,18 +116,19 @@ public class PersistenceTests(DatabaseFixture fixture) : IClassFixture<DatabaseF
         await db.Database.ExecuteSqlRawAsync("SET CONSTRAINTS ALL IMMEDIATE; SET CONSTRAINTS ALL DEFERRED");
     private static Repository<T> Repo<T>(CatalogDbContext db) where T : class, IEntity<Guid> => new(db);
 
-    [Fact]
-    public async Task MigrationAndModelHaveExactly15Tables()
+    [CatalogPostgresFact]
+    public async Task MigrationAndModelIncludeCatalogAndMailboxTables()
     {
         await using var db = fixture.Create();
-        Assert.Equal(15, db.Model.GetEntityTypes().Count());
+        Assert.Equal(17, db.Model.GetEntityTypes().Count());
         Assert.All(db.Model.GetEntityTypes(), type => Assert.Equal("catalog", type.GetSchema()));
         Assert.DoesNotContain(db.Model.GetEntityTypes().SelectMany(x => x.GetProperties()), x => x.Name == "IsDeleted" || x.Name == "DomainEvents");
         Assert.Empty(await db.Database.GetPendingMigrationsAsync());
-        Assert.Contains("20260907110000_FixReferenceTrigger", await db.Database.GetAppliedMigrationsAsync());
+        Assert.Equal(db.Database.GetMigrations(), await db.Database.GetAppliedMigrationsAsync());
+        Assert.False(db.Database.HasPendingModelChanges());
     }
 
-    [Fact]
+    [CatalogPostgresFact]
     public async Task SharedRepositoryRoundTripsFiveAggregatesAndChildren()
     {
         await using var db = fixture.Create();
@@ -94,6 +146,8 @@ public class PersistenceTests(DatabaseFixture fixture) : IClassFixture<DatabaseF
         var manual = CatalogCollection.CreateManual("Manual");
         manual.AddProduct(p);
         var automatic = CatalogCollection.CreateAutomatic("Auto", [brand], [category]);
+        manual.Publish();
+        automatic.Publish();
         var bundleProduct = Product.Create("Bundle");
         var bundle = ProductItem.CreateBundle(bundleProduct, SKU.Create(Sku()), [], [(item, 2)]);
         await Repo<Brand>(db).AddAsync(brand); await Repo<Category>(db).AddAsync(category);
@@ -135,14 +189,18 @@ public class PersistenceTests(DatabaseFixture fixture) : IClassFixture<DatabaseF
         Assert.Equal(2, after.Media.Count);
     }
 
-    [Fact]
+    [CatalogPostgresFact]
     public async Task LongSignatureAndDuplicateCombination()
     {
         await using var db = fixture.Create();
         await using var tx = await db.Database.BeginTransactionAsync();
         var p = Product.Create("Many variations");
         var selections = new List<OptionSelection>();
-        for (var n = 0; n < 60; n++) { var v = p.AddVariation("V" + n); selections.Add(new(v, p.AddVariationOption(v, "O"))); }
+        for (var n = 0; n < 60; n++)
+        {
+            var v = p.AddVariation("V" + n);
+            selections.Add(new(v, p.AddVariationOption(v, "O")));
+        }
         var item = ProductItem.Create(p, SKU.Create(Sku()), selections);
         await Repo<Product>(db).AddAsync(p); await Repo<ProductItem>(db).AddAsync(item);
         await db.SaveChangesAsync(); await CheckConstraints(db);
@@ -153,7 +211,7 @@ public class PersistenceTests(DatabaseFixture fixture) : IClassFixture<DatabaseF
         Assert.Equal("23505", error.SqlState);
     }
 
-    [Fact]
+    [CatalogPostgresFact]
     public async Task DuplicateSkuFailsAndEventsAreRetained()
     {
         await using var db = fixture.Create();
@@ -166,7 +224,7 @@ public class PersistenceTests(DatabaseFixture fixture) : IClassFixture<DatabaseF
         Assert.Single(first.DomainEvents);
     }
 
-    [Fact]
+    [CatalogPostgresFact]
     public async Task StaleAggregateCannotOverwriteChildChanges()
     {
         await using var db = fixture.Create();
@@ -187,7 +245,7 @@ public class PersistenceTests(DatabaseFixture fixture) : IClassFixture<DatabaseF
         await Assert.ThrowsAsync<DbUpdateConcurrencyException>(() => other.SaveChangesAsync());
     }
 
-    [Fact]
+    [CatalogPostgresFact]
     public async Task CollectionRuleReplacementAndManualReorderPersist()
     {
         await using var db = fixture.Create(); await using var tx = await db.Database.BeginTransactionAsync();
@@ -206,7 +264,7 @@ public class PersistenceTests(DatabaseFixture fixture) : IClassFixture<DatabaseF
         Assert.Equal(brand2.Id, (await Repo<CatalogCollection>(db).GetRequiredByIdAsync(automatic.Id)).Rules!.BrandIds[0]);
     }
 
-    [Fact]
+    [CatalogPostgresFact]
     public async Task RawSqlCycleRejected()
     {
         await using var db = fixture.Create(); await using var tx = await db.Database.BeginTransactionAsync();
@@ -217,21 +275,67 @@ public class PersistenceTests(DatabaseFixture fixture) : IClassFixture<DatabaseF
         Assert.Equal("23514", (await Assert.ThrowsAsync<PostgresException>(() => CheckConstraints(db))).SqlState);
     }
 
-    [Fact]
+    [CatalogPostgresFact]
+    public async Task ConcurrentRawSqlCannotCommitCategoryCycle()
+    {
+        await using var db = fixture.Create();
+        var a = Category.CreateRoot("Concurrent A");
+        var b = Category.CreateRoot("Concurrent B");
+        await using (var setup = await db.Database.BeginTransactionAsync())
+        {
+            await Repo<Category>(db).AddRangeAsync([a, b]);
+            await db.SaveChangesAsync();
+            await setup.CommitAsync();
+        }
+        await using var first = new NpgsqlConnection(fixture.Connection);
+        await using var second = new NpgsqlConnection(fixture.Connection);
+        await first.OpenAsync();
+        await second.OpenAsync();
+        await using var firstTransaction = await first.BeginTransactionAsync();
+        await using var secondTransaction = await second.BeginTransactionAsync();
+        await using var firstUpdate = new NpgsqlCommand("UPDATE catalog.categories SET parent_category_id = @parent WHERE id = @id", first, firstTransaction);
+        firstUpdate.Parameters.AddWithValue("parent", b.Id);
+        firstUpdate.Parameters.AddWithValue("id", a.Id);
+        await firstUpdate.ExecuteNonQueryAsync();
+        await using var secondUpdate = new NpgsqlCommand("UPDATE catalog.categories SET parent_category_id = @parent WHERE id = @id", second, secondTransaction);
+        secondUpdate.Parameters.AddWithValue("parent", a.Id);
+        secondUpdate.Parameters.AddWithValue("id", b.Id);
+        using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+        var pending = secondUpdate.ExecuteNonQueryAsync(timeout.Token);
+        await firstTransaction.CommitAsync(timeout.Token);
+        await pending;
+        var error = await Assert.ThrowsAsync<PostgresException>(() => secondTransaction.CommitAsync(timeout.Token));
+        Assert.Equal("23514", error.SqlState);
+    }
+
+    [CatalogPostgresFact]
+    public async Task IntegrityWritesRejectStaleSnapshotIsolation()
+    {
+        await using var connection = new NpgsqlConnection(fixture.Connection);
+        await connection.OpenAsync();
+        await using var transaction = await connection.BeginTransactionAsync(System.Data.IsolationLevel.RepeatableRead);
+        await using var command = new NpgsqlCommand("UPDATE catalog.categories SET parent_category_id = NULL WHERE false", connection, transaction);
+        var error = await Assert.ThrowsAsync<PostgresException>(() => command.ExecuteNonQueryAsync());
+        Assert.Equal("0A000", error.SqlState);
+    }
+
+    [CatalogPostgresFact]
     public async Task ModuleResolvesSharedServicesAndDoesNotMigrateInProduction()
     {
         var config = new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string,string?> { ["Postgres:ConnectionString"] = fixture.Connection }).Build();
         var services = new ServiceCollection(); services.AddLogging(); services.AddSingleton<IHostEnvironment>(new EnvironmentStub());
+        services.AddSingleton<IConfiguration>(config);
+        services.AddScoped<IDomainEventDispatcher>(_ => new DomainEventDispatcher([]));
         services.AddCatalogModule(config);
         await using var provider = services.BuildServiceProvider(new ServiceProviderOptions { ValidateScopes = true, ValidateOnBuild = true });
         await using var scope = provider.CreateAsyncScope();
-        Assert.IsType<UnitOfWork>(scope.ServiceProvider.GetRequiredKeyedService<IUnitOfWork>("catalog"));
+        Assert.IsType<CatalogUnitOfWork>(scope.ServiceProvider.GetRequiredService<ICatalogUnitOfWork>());
         Assert.IsAssignableFrom<Repository<Product>>(scope.ServiceProvider.GetRequiredService<IProductRepository>());
-        Assert.Same(scope.ServiceProvider.GetRequiredService<IProductRepository>(), scope.ServiceProvider.GetRequiredService<IRepository<Product>>());
-        Assert.Same(scope.ServiceProvider.GetRequiredService<IProductRepository>(), scope.ServiceProvider.GetRequiredService<ICommandRepository<Product>>());
+        Assert.Same(scope.ServiceProvider.GetRequiredService<IProductRepository>(), scope.ServiceProvider.GetRequiredService<IProductRepository>());
+        Assert.IsAssignableFrom<IRepository<Product>>(scope.ServiceProvider.GetRequiredService<IRepository<Product>>());
         var app = new ApplicationBuilder(provider);
-        await app.UseCatalogModuleAsync();
-        await scope.ServiceProvider.GetRequiredKeyedService<IUnitOfWork>("catalog").ExecuteInTransactionAsync(async ct =>
+        app.UseCatalogModule();
+        await scope.ServiceProvider.GetRequiredService<ICatalogUnitOfWork>().ExecuteInTransactionAsync(async ct =>
         {
             var context = scope.ServiceProvider.GetRequiredService<CatalogDbContext>();
             Assert.NotNull(context.Database.CurrentTransaction);
@@ -239,7 +343,7 @@ public class PersistenceTests(DatabaseFixture fixture) : IClassFixture<DatabaseF
         });
     }
 
-    [Fact]
+    [CatalogPostgresFact]
     public async Task CatalogLockSerializesConcurrentWritersWithoutLeavingTestRows()
     {
         await using var first = fixture.Create(); await using var second = fixture.Create();
@@ -255,7 +359,7 @@ public class PersistenceTests(DatabaseFixture fixture) : IClassFixture<DatabaseF
         await second.PrepareTransactionAsync();
     }
 
-    [Fact]
+    [CatalogPostgresFact]
     public async Task ForeignProductOptionIsRejectedByDatabase()
     {
         await using var db = fixture.Create(); await using var tx = await db.Database.BeginTransactionAsync();

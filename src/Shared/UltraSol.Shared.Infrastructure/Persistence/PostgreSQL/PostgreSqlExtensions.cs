@@ -29,9 +29,9 @@ public static class PostgreSqlExtensions
         });
         if (runMigration)
         {
-            using var scope = services.BuildServiceProvider().CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<TContext>();
-            dbContext.Database.Migrate();
+            //using var scope = services.BuildServiceProvider().CreateScope();
+            //var dbContext = scope.ServiceProvider.GetRequiredService<TContext>();
+            //dbContext.Database.Migrate();
         }
         return services;
     }

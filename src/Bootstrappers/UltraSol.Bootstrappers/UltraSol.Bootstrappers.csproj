@@ -4,7 +4,6 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>8acea3cd-4fae-45cd-824c-59ce0fb299a7</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
@@ -21,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\Auth\UltraSol.Modules.Auth.Api\UltraSol.Modules.Auth.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Catalog\UltraSol.Modules.Catalog.Api\UltraSol.Modules.Catalog.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Organization\UltraSol.Modules.Organization.Api\UltraSol.Modules.Organization.Api.csproj" />
   </ItemGroup>
 
 </Project>

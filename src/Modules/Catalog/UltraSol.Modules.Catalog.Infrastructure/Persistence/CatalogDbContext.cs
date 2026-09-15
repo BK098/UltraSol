@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using UltraSol.Shared.Infrastructure.Messaging;
 using UltraSol.Modules.Catalog.Domain.Catalog.Brands;
 using UltraSol.Modules.Catalog.Domain.Catalog.Categories;
 using UltraSol.Modules.Catalog.Domain.Catalog.Collections;
@@ -37,6 +38,7 @@ public sealed class CatalogDbContext : ModuleDbContext<CatalogDbContext>, ITrans
     {
         modelBuilder.HasDefaultSchema(Schema.Name);
         CatalogModel.Configure(modelBuilder);
+        modelBuilder.MapMailbox();
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
     }
 

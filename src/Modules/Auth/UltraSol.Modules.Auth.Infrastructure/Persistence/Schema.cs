@@ -4,4 +4,3 @@ public static class Schema
 {
     public const string Name = "auth";
 }
-
