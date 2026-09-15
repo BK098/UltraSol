@@ -12,13 +12,11 @@ namespace UltraSol.Shared.Infrastructure.ThirdParties.Caching.Redis
             var options = services.GetOptions<RedisOptions>(RedisOptions.SectionName);
             if (string.IsNullOrWhiteSpace(options.ConnectionString))
             {
-                throw new InvalidOperationException(
-                    "Redis ConnectionString is required."
-                );
+                throw new InvalidOperationException("Redis ConnectionString is required.");
             }
             services.AddSingleton(options);
+            services.AddHostedService<RedisConnectionChecker>();
             services.AddSingleton<IOptions<RedisOptions>>(Options.Create(options));
-
             services.AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect(options.ConnectionString));
             services.AddSingleton<ICacheService, RedisCacheService>();
             return services;

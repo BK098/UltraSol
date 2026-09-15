@@ -18,7 +18,7 @@ internal static class OrganizationModule
 {
     public static IServiceCollection AddOrganizationModule(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddPostgres<OrganizationDbContext>(true);
+        services.AddPostgres<OrganizationDbContext>(Schema.Name);
         services.AddRegistration(AppDomain.CurrentDomain.GetAssemblies());
         services.AddScoped<IOrganizationUnitOfWork, OrganizationUnitOfWork>();
         services.AddScoped<Mailbox<OrganizationDbContext>>(sp => new(sp.GetRequiredService<OrganizationDbContext>(), sp.GetRequiredService<IOrganizationUnitOfWork>(), sp));
@@ -28,9 +28,11 @@ internal static class OrganizationModule
         services.AddSingleton(new ModuleMailbox("organization", sp => sp.GetRequiredService<Mailbox<OrganizationDbContext>>(), [typeof(EmployeeAccountProvisioned), typeof(EmployeeAccessApplied)]));
         return services;
     }
-    public static IApplicationBuilder UseOrganizationModule(this IApplicationBuilder app)
+    public static async Task<IApplicationBuilder> UseOrganizationModule(this IApplicationBuilder app)
     {
         using var scope = app.ApplicationServices.CreateScope();
+        await app.ApplicationServices.MigrateAsync<OrganizationDbContext>();
+
         return app;
     }
     //public static async Task InitializeOrganizationAsync(this WebApplication app)

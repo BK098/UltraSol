@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using UltraSol.Modules.Catalog.Domain.Catalog.ProductItems;
 using UltraSol.Modules.Catalog.Infrastructure.Persistence;
 
 #nullable disable
@@ -229,7 +230,8 @@ namespace UltraSol.Modules.Catalog.Infrastructure.Persistence.Migrations
                     b.Property<int>("Status")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasDefaultValue(1)
+                        .HasDefaultValue(ProductItemStatus.Draft)
+                        .IsRequired()
                         .HasColumnName("status");
 
                     b.Property<bool>("StoredIsBundle")

@@ -13,8 +13,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
-using UltraSol.Shared.Application.Messaging.Integration;
-using UltraSol.Shared.Infrastructure.Messaging;
 using UltraSol.Modules.Auth.Application.Authorization;
 using UltraSol.Modules.Auth.Application.Messaging;
 using UltraSol.Modules.Auth.Application.Persistence;
@@ -24,8 +22,11 @@ using UltraSol.Modules.Auth.Infrastructure.Authentication;
 using UltraSol.Modules.Auth.Infrastructure.Authorization;
 using UltraSol.Modules.Auth.Infrastructure.Messaging;
 using UltraSol.Modules.Auth.Infrastructure.Persistence;
+using UltraSol.Shared.Application.Messaging.Integration;
 using UltraSol.Shared.Application.Responses;
 using UltraSol.Shared.Infrastructure.DependencyInjections;
+using UltraSol.Shared.Infrastructure.Messaging;
+using UltraSol.Shared.Infrastructure.Persistence.PostgreSQL;
 using UltraSol.Shared.IntegrationEvents.Organization;
 
 [assembly: InternalsVisibleTo("UltraSol.Bootstrappers")]
@@ -119,10 +120,11 @@ internal static class AuthModule
         await scope.ServiceProvider.GetRequiredService<AuthSeeder>().SeedAsync(Path.Combine(AppContext.BaseDirectory, "seeds", "auth.json"), app.Lifetime.ApplicationStopping);
     }
 
-    public static IApplicationBuilder UseAuthModule(this IApplicationBuilder app)
+    public static async Task<IApplicationBuilder> UseAuthModule(this IApplicationBuilder app)
     {
         app.UseAuthentication();
         app.UseAuthorization();
+        await app.ApplicationServices.MigrateAsync<AuthDbContext>();
         return app;
     }
 

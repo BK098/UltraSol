@@ -41,6 +41,7 @@ public sealed class ProductItem : AggregateRoot
         OptionSelections = Array.AsReadOnly(selections);
         OptionSignature = OptionSignature.Create(selections);
         BundleDefinition = bundle;
+        Status = ProductItemStatus.Draft;
     }
     public static ProductItem Create(Product product, SKU sku, IEnumerable<OptionSelection> selections)
     {

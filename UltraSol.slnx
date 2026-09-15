@@ -21,6 +21,12 @@
     <Project Path="src/Modules/Catalog/UltraSol.Modules.Catalog.Domain/UltraSol.Modules.Catalog.Domain.csproj" Id="215724a4-1758-467c-9bcc-8f08b8c9e40d" />
     <Project Path="src/Modules/Catalog/UltraSol.Modules.Catalog.Infrastructure/UltraSol.Modules.Catalog.Infrastructure.csproj" Id="f219bef4-3367-4286-bd56-ba01b2fafeaf" />
   </Folder>
+  <Folder Name="/src/Modules/Inventory/">
+    <Project Path="src/Modules/Inventory/UltraSol.Modules.Inventory.Api/UltraSol.Modules.Inventory.Api.csproj" />
+    <Project Path="src/Modules/Inventory/UltraSol.Modules.Inventory.Application/UltraSol.Modules.Inventory.Application.csproj" />
+    <Project Path="src/Modules/Inventory/UltraSol.Modules.Inventory.Domain/UltraSol.Modules.Inventory.Domain.csproj" />
+    <Project Path="src/Modules/Inventory/UltraSol.Modules.Inventory.Infrastructure/UltraSol.Modules.Inventory.Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/src/Modules/Organization/">
     <Project Path="src/Modules/Organization/UltraSol.Modules.Organization.Api/UltraSol.Modules.Organization.Api.csproj" />
     <Project Path="src/Modules/Organization/UltraSol.Modules.Organization.Application/UltraSol.Modules.Organization.Application.csproj" />
@@ -38,5 +44,6 @@
   <Folder Name="/tests/">
     <Project Path="tests/UltraSol.Modules.Auth.Tests/UltraSol.Modules.Auth.Tests.csproj" />
     <Project Path="tests/UltraSol.Modules.Catalog.Domain.Tests/UltraSol.Modules.Catalog.Domain.Tests.csproj" />
+    <Project Path="tests/UltraSol.Modules.Inventory.Tests/UltraSol.Modules.Inventory.Tests.csproj" />
   </Folder>
 </Solution>

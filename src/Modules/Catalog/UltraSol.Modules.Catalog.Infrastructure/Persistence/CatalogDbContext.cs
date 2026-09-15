@@ -39,7 +39,7 @@ public sealed class CatalogDbContext : ModuleDbContext<CatalogDbContext>, ITrans
         modelBuilder.HasDefaultSchema(Schema.Name);
         CatalogModel.Configure(modelBuilder);
         modelBuilder.MapMailbox();
-        modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        //modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
     }
 
     internal void AddAggregate<T>(T aggregate) where T : AggregateRoot

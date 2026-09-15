@@ -28,7 +28,7 @@ internal static class CatalogModule
 {
     public static IServiceCollection AddCatalogModule(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddPostgres<CatalogDbContext>();
+        services.AddPostgres<CatalogDbContext>(Schema.Name);
         services.ConfigureDbContext<CatalogDbContext>(options => options.UseNpgsql(postgres => postgres.MigrationsHistoryTable("__EFMigrationsHistory", Schema.Name)));
         services.AddRegistration([typeof(CreateProductCommand).Assembly, typeof(ProductRepository).Assembly]);
         services.AddScoped<ICatalogUnitOfWork, CatalogUnitOfWork>();
@@ -43,15 +43,11 @@ internal static class CatalogModule
         return services;
     }
 
-    //public static async Task InitializeCatalogAsync(this WebApplication app)
-    //{
-    //    await using var scope = app.Services.CreateAsyncScope();
-    //    await scope.ServiceProvider.GetRequiredService<CatalogDbContext>().Database.MigrateAsync();
-    //}
 
-    public static IApplicationBuilder UseCatalogModule(this IApplicationBuilder app)
+    public static async Task<IApplicationBuilder> UseCatalogModule(this IApplicationBuilder app)
     {
-        using var scope = app.ApplicationServices.CreateScope();
+        await app.ApplicationServices.MigrateAsync<CatalogDbContext>();
+        
         return app;
     }
 

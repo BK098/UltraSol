@@ -8,6 +8,11 @@ using UltraSol.Shared.Infrastructure.Repositories;
 
 namespace UltraSol.Modules.Organization.Infrastructure.Persistence;
 
+public class Schema
+{
+    public const string Name = "organization";
+}
+
 public sealed class OrganizationDbContext(DbContextOptions<OrganizationDbContext> options) : ModuleDbContext<OrganizationDbContext>(options), ITransactionPreparation, IRepositoryWritePolicy
 {
     protected override bool RequireTransaction => true;
@@ -25,7 +30,7 @@ public sealed class OrganizationDbContext(DbContextOptions<OrganizationDbContext
     public DbSet<Employee> Employees => Set<Employee>();
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.HasDefaultSchema("organization");
+        builder.HasDefaultSchema(Schema.Name);
         builder.MapMailbox();
 
         ModelConfigure.Root<Employee>(builder, "employees");

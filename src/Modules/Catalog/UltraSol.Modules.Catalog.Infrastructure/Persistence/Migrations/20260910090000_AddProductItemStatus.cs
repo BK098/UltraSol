@@ -17,7 +17,7 @@ public partial class AddProductItemStatus : Migration
             table: "product_items",
             type: "integer",
             nullable: false,
-            defaultValue: 1);
+            defaultValue: 0);
     }
 
     protected override void Down(MigrationBuilder migrationBuilder)

@@ -31,7 +31,7 @@ public static class DependencyInjection
 
     public static IServiceCollection AddAuthInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddPostgres<AuthDbContext>(true);
+        services.AddPostgres<AuthDbContext>(Schema.Name);
         services.AddLogging();
         services.AddDataProtection();
         services.AddIdentityCore<UserAccount>(options =>

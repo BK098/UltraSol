@@ -13,6 +13,10 @@ public static class RabbitExtensions
     {
         var options = services.GetOptions<RabbitOptions>(RabbitOptions.SectionName) ?? throw new InvalidOperationException("RabbitMQ configuration is required");
         services.AddSingleton(options);
+        services.Configure<MassTransitHostOptions>(options =>
+        {
+            options.WaitUntilStarted = true;
+        });
         services.AddMassTransit(registration =>
         {
             registration.UsingRabbitMq((context, bus) =>

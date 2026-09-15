@@ -47,8 +47,9 @@ namespace UltraSol.Shared.Infrastructure
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(options => options.SwaggerDoc("v1", new OpenApiInfo { Title = "UltraSol API", Version = "v1" }));
             services.AddApplication();
-            services.AddRedis();
+
             services.AddPostgres();
+            services.AddRedis();
             services.AddRabbitMessageQueues();
 
             services.TryAddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
