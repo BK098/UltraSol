@@ -1,3 +1,4 @@
+using UltraSol.Shared.Application.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using StackExchange.Redis;

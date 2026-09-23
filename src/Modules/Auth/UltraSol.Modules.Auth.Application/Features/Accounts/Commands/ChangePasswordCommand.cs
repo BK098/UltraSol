@@ -1,3 +1,4 @@
+using UltraSol.Shared.Application.Authentication;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using UltraSol.Modules.Auth.Application.Authentication;

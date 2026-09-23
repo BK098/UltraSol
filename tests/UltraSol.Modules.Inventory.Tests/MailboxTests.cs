@@ -1,6 +1,9 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using UltraSol.Modules.Inventory.Api;
 using UltraSol.Modules.Inventory.Application;
 using UltraSol.Modules.Inventory.Application.Contracts;
 using UltraSol.Modules.Inventory.Domain.Repositories;
@@ -92,7 +95,28 @@ public sealed class MailboxTests(InventoryDatabaseFixture fixture) : IClassFixtu
         Assert.Equal(5, (await verify.Stocks.SingleAsync(value => value.ProductItemId == request.ProductItemId)).OnHand);
         Assert.True(await verify.Movements.AnyAsync(value => value.Id == request.OperationId));
         Assert.Null((await verify.Set<OutboxMessage>().SingleAsync(value => value.Id == message.EventId)).PublishedAt);
-        Assert.Empty(services.GetServices<ModuleMailbox>());
+        var registration = Assert.Single(services.GetServices<ModuleMailbox>());
+        Assert.Equal("inventory", registration.Name);
+        Assert.Empty(registration.Subscriptions);
+    }
+
+    [Fact]
+    public void InventoryRegistersExpiryWorkerAndPublisherMailbox()
+    {
+        var services = new ServiceCollection();
+        var configuration = new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string, string?>
+        {
+            ["Postgres:ConnectionString"] = "Host=localhost;Database=registration_only;Username=unused"
+        }).Build();
+        services.AddLogging();
+        services.AddSingleton<IConfiguration>(configuration);
+        services.AddInventoryModule(configuration);
+        using var provider = services.BuildServiceProvider();
+
+        Assert.Contains(provider.GetServices<IHostedService>(), service => service is ReservationExpiryWorker);
+        var registration = Assert.Single(provider.GetServices<ModuleMailbox>());
+        Assert.Equal("inventory", registration.Name);
+        Assert.Empty(registration.Subscriptions);
     }
 
     public sealed record CancelFixtureEvent(Guid EventId, Guid CorrelationId, long AggregateVersion, int ContractVersion, Guid OrderId, bool FailAfterMutation);

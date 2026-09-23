@@ -1,3 +1,4 @@
+using UltraSol.Shared.Application.Authentication;
 using System.Reflection;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;

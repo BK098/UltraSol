@@ -27,11 +27,29 @@
     <Project Path="src/Modules/Inventory/UltraSol.Modules.Inventory.Domain/UltraSol.Modules.Inventory.Domain.csproj" />
     <Project Path="src/Modules/Inventory/UltraSol.Modules.Inventory.Infrastructure/UltraSol.Modules.Inventory.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/src/Modules/Ordering/">
+    <Project Path="src/Modules/Ordering/UltraSol.Modules.Ordering.Api/UltraSol.Modules.Ordering.Api.csproj" />
+    <Project Path="src/Modules/Ordering/UltraSol.Modules.Ordering.Application/UltraSol.Modules.Ordering.Application.csproj" />
+    <Project Path="src/Modules/Ordering/UltraSol.Modules.Ordering.Domain/UltraSol.Modules.Ordering.Domain.csproj" />
+    <Project Path="src/Modules/Ordering/UltraSol.Modules.Ordering.Infrastructure/UltraSol.Modules.Ordering.Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/src/Modules/Organization/">
     <Project Path="src/Modules/Organization/UltraSol.Modules.Organization.Api/UltraSol.Modules.Organization.Api.csproj" />
     <Project Path="src/Modules/Organization/UltraSol.Modules.Organization.Application/UltraSol.Modules.Organization.Application.csproj" />
     <Project Path="src/Modules/Organization/UltraSol.Modules.Organization.Domain/UltraSol.Modules.Organization.Domain.csproj" />
     <Project Path="src/Modules/Organization/UltraSol.Modules.Organization.Infrastructure/UltraSol.Modules.Organization.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Payment/">
+    <Project Path="src/Modules/Payment/UltraSol.Modules.Payment.Api/UltraSol.Modules.Payment.Api.csproj" />
+    <Project Path="src/Modules/Payment/UltraSol.Modules.Payment.Application/UltraSol.Modules.Payment.Application.csproj" />
+    <Project Path="src/Modules/Payment/UltraSol.Modules.Payment.Domain/UltraSol.Modules.Payment.Domain.csproj" />
+    <Project Path="src/Modules/Payment/UltraSol.Modules.Payment.Infrastructure/UltraSol.Modules.Payment.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Pricing/">
+    <Project Path="src/Modules/Pricing/UltraSol.Modules.Pricing.Api/UltraSol.Modules.Pricing.Api.csproj" />
+    <Project Path="src/Modules/Pricing/UltraSol.Modules.Pricing.Infrastructure/UltraSol.Modules.Pricing.Infrastructure.csproj" />
+    <Project Path="src/Modules/Pricing/UltraSol.Modules.Pricing.Application/UltraSol.Modules.Pricing.Application.csproj" />
+    <Project Path="src/Modules/Pricing/UltraSol.Modules.Pricing.Domain/UltraSol.Modules.Pricing.Domain.csproj" />
   </Folder>
   <Folder Name="/src/Shared/">
     <Project Path="src/Shared/UltraSol.Shared.Application/UltraSol.Shared.Application.csproj" Id="19c9258f-c85c-40ea-876b-52ed9d7b9d3a" />
@@ -45,5 +63,8 @@
     <Project Path="tests/UltraSol.Modules.Auth.Tests/UltraSol.Modules.Auth.Tests.csproj" />
     <Project Path="tests/UltraSol.Modules.Catalog.Domain.Tests/UltraSol.Modules.Catalog.Domain.Tests.csproj" />
     <Project Path="tests/UltraSol.Modules.Inventory.Tests/UltraSol.Modules.Inventory.Tests.csproj" />
+    <Project Path="tests/UltraSol.Modules.Ordering.Tests/UltraSol.Modules.Ordering.Tests.csproj" />
+    <Project Path="tests/UltraSol.Modules.Payment.Tests/UltraSol.Modules.Payment.Tests.csproj" />
+    <Project Path="tests/UltraSol.Modules.Pricing.Tests/UltraSol.Modules.Pricing.Tests.csproj" />
   </Folder>
 </Solution>

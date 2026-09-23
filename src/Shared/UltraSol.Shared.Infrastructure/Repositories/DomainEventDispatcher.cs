@@ -12,4 +12,3 @@ public sealed class DomainEventDispatcher(IEnumerable<IDomainEventHandler> handl
                 await handler.HandleAsync(domainEvent, cancellationToken).ConfigureAwait(false);
     }
 }
-

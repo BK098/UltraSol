@@ -1,3 +1,4 @@
+using UltraSol.Shared.Application.Authentication;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using UltraSol.Modules.Auth.Application.Authorization;

@@ -1,3 +1,4 @@
+using UltraSol.Shared.Application.Authentication;
 using UltraSol.Modules.Auth.Application.Authentication;
 using UltraSol.Modules.Auth.Application.Authorization;
 using UltraSol.Modules.Auth.Application.Persistence;

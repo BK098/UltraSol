@@ -2,8 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
+using UltraSol.Modules.Inventory.Api;
 using UltraSol.Modules.Inventory.Infrastructure;
 using UltraSol.Modules.Inventory.Infrastructure.Persistence;
+using UltraSol.Shared.Domain.Common.Repositories;
+using UltraSol.Shared.Infrastructure.Repositories;
 using Xunit;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
@@ -53,8 +56,10 @@ public sealed class InventoryDatabaseFixture : IAsyncLifetime
         var services = new ServiceCollection();
         var configuration = new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string, string?> { ["Postgres:ConnectionString"] = Connection }).Build();
         services.AddLogging();
+        services.AddSingleton<IConfiguration>(configuration);
         services.AddSingleton<TimeProvider>(clock ?? TimeProvider.System);
-        //services.AddInventoryInfrastructure(configuration);
+        services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
+        services.AddInventoryModule(configuration);
         configure?.Invoke(services);
         return services.BuildServiceProvider(new ServiceProviderOptions { ValidateScopes = true });
     }
