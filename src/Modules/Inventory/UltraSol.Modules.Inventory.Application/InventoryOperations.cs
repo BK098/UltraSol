@@ -8,11 +8,12 @@ using UltraSol.Modules.Inventory.Domain.Reservations;
 using UltraSol.Modules.Inventory.Domain.Stocks;
 using UltraSol.Shared.Domain.Common.Entities;
 using UltraSol.Shared.Domain.Common.Exceptions;
+using UltraSol.Shared.IntegrationEvents.Inventory;
 
 namespace UltraSol.Modules.Inventory.Application;
 
 /// <summary>Transaction-neutral business operations; the entry point owns the Inventory unit of work.</summary>
-public sealed class InventoryOperations(IInventoryStockRepository stocks, IStockReservationRepository reservations, IInventoryAdjustmentRepository adjustments, IStockMovementRepository movements, TimeProvider time)
+public sealed class InventoryOperations(IInventoryStockRepository stocks, IStockReservationRepository reservations, IInventoryAdjustmentRepository adjustments, IStockMovementRepository movements, IInventoryOutbox outbox, TimeProvider time)
 {
     public async Task<ReceiptResult> ReceiveAsync(ReceiveStockRequest request, string? actorId, CancellationToken ct)
     {
@@ -107,9 +108,12 @@ public sealed class InventoryOperations(IInventoryStockRepository stocks, IStock
     private async Task<ReservationResult> ReleaseAsync(StockReservation reservation, string? actorId, CancellationToken ct)
     {
         var now = time.GetUtcNow();
-        var changed = reservation.EffectiveStatus(now) == ReservationStatus.Expired
-            ? reservation.Expire(now)
-            : reservation.Release(now);
+        if (reservation.EffectiveStatus(now) == ReservationStatus.Expired)
+        {
+            await ExpireAsync(reservation, actorId, now, ct);
+            return Reservation(reservation);
+        }
+        var changed = reservation.Release(now);
         if (changed)
         {
             await ReleaseLinesAsync(reservation, actorId, now, ct);
@@ -141,11 +145,18 @@ public sealed class InventoryOperations(IInventoryStockRepository stocks, IStock
     {
         var reservation = await reservations.FindTrackedAsync(reservationId, ct);
         var now = time.GetUtcNow();
-        if (reservation is null || !reservation.Expire(now))
+        return reservation is not null && await ExpireAsync(reservation, "inventory-expiry", now, ct);
+    }
+
+    private async Task<bool> ExpireAsync(StockReservation reservation, string? actorId, DateTimeOffset now, CancellationToken ct)
+    {
+        if (!reservation.Expire(now))
         {
             return false;
         }
-        await ReleaseLinesAsync(reservation, "inventory-expiry", now, ct);
+        await ReleaseLinesAsync(reservation, actorId, now, ct);
+        outbox.Add(new InventoryReservationExpiredV1(Guid.CreateVersion7(), reservation.OrderId, 1, now,
+            reservation.Id, reservation.OrderId, reservation.ExpiredAt!.Value));
         return true;
     }
 

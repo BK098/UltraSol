@@ -1,4 +1,5 @@
 using System.Data.Common;
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,8 @@ using UltraSol.Modules.Inventory.Infrastructure;
 using UltraSol.Modules.Inventory.Infrastructure.Persistence;
 using UltraSol.Shared.Domain.Common.Exceptions;
 using UltraSol.Shared.Domain.Common.Paging;
+using UltraSol.Shared.IntegrationEvents.Inventory;
+using UltraSol.Shared.Infrastructure.Messaging;
 using Xunit;
 
 namespace UltraSol.Modules.Inventory.Tests;
@@ -179,6 +182,60 @@ public sealed class InventoryPersistenceTests(InventoryDatabaseFixture fixture) 
         Assert.Equal(expired.ConcurrencyStamp, replay.ConcurrencyStamp);
         Assert.Equal((4, 0), ((await module.GetAvailabilityAsync([item]))[0].OnHand, (await module.GetAvailabilityAsync([item]))[0].Reserved));
         Assert.Equal(1, await db.Movements.CountAsync(value => value.ProductItemId == item));
+        var outbox = Assert.Single(await db.Set<OutboxMessage>().ToArrayAsync(),
+            value => JsonSerializer.Deserialize<InventoryReservationExpiredV1>(value.Payload)!.ReservationId == reservation.Id);
+        var message = JsonSerializer.Deserialize<InventoryReservationExpiredV1>(outbox.Payload)!;
+        Assert.Equal(reservation.Id, message.ReservationId);
+        Assert.Equal(reservation.OrderId, message.OrderId);
+        Assert.Equal(clock.Now, message.ExpiredAt);
+        Assert.Equal(clock.Now, message.OccurredAt);
+        Assert.Equal(reservation.OrderId, message.CorrelationId);
+        Assert.Equal(1, message.ContractVersion);
+        Assert.Equal(outbox.Id, message.EventId);
+    }
+
+    [InventoryPostgresFact]
+    public async Task DueReleasePersistsOneExpiryEventAndRollsBackWithStock()
+    {
+        var now = new DateTimeOffset(2030, 1, 1, 0, 0, 0, TimeSpan.Zero);
+        var clock = new InventoryTestClock(now);
+        await using var services = fixture.Services(clock);
+        var module = Module(services);
+        var item = Guid.NewGuid();
+        await module.ReceiveAsync(Receipt(item, 4), "actor");
+        var reservation = await module.ReserveAsync(new(Guid.NewGuid(), now.AddMinutes(1), [new(item, 2)]), "actor");
+        clock.Now = reservation.ExpiresAt;
+
+        await using (var failed = services.CreateAsyncScope())
+        {
+            var operations = failed.ServiceProvider.GetRequiredService<InventoryOperations>();
+            await Assert.ThrowsAsync<InvalidOperationException>(() => failed.ServiceProvider.GetRequiredService<IInventoryUnitOfWork>().ExecuteInTransactionAsync(async ct =>
+            {
+                await operations.ReleaseAsync(reservation.Id, "cancel", ct);
+                throw new InvalidOperationException("Injected failure after expiry.");
+            }));
+        }
+
+        Assert.Equal(2, (await module.GetAvailabilityAsync([item]))[0].Reserved);
+        await using (var beforeCommit = fixture.Create())
+        {
+            Assert.Equal(ReservationStatus.Active, (await beforeCommit.Reservations.SingleAsync(value => value.Id == reservation.Id)).Status);
+            Assert.DoesNotContain(await beforeCommit.Set<OutboxMessage>().ToArrayAsync(),
+                value => JsonSerializer.Deserialize<InventoryReservationExpiredV1>(value.Payload)!.ReservationId == reservation.Id);
+        }
+
+        var result = await module.ReleaseAsync(reservation.Id, "cancel");
+        Assert.Equal(nameof(ReservationStatus.Expired), result.Status);
+        await module.ReleaseAsync(reservation.Id, "retry");
+
+        await using var db = fixture.Create();
+        Assert.Equal(0, (await module.GetAvailabilityAsync([item]))[0].Reserved);
+        var outbox = Assert.Single(await db.Set<OutboxMessage>().ToArrayAsync(),
+            value => JsonSerializer.Deserialize<InventoryReservationExpiredV1>(value.Payload)!.ReservationId == reservation.Id);
+        var message = JsonSerializer.Deserialize<InventoryReservationExpiredV1>(outbox.Payload)!;
+        Assert.Equal(reservation.Id, message.ReservationId);
+        Assert.Equal(reservation.OrderId, message.OrderId);
+        Assert.Equal(clock.Now, message.ExpiredAt);
     }
 
     [InventoryPostgresFact]

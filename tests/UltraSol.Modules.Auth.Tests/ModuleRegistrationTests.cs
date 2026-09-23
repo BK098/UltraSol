@@ -28,9 +28,7 @@ public sealed class ModuleRegistrationTests
         {
             var api = Assembly.Load($"UltraSol.Modules.{module}.Api");
             var registration = api.GetType($"UltraSol.Modules.{module}.Api.{module}Module")!.GetMethod($"Add{module}Module")!;
-            registration.Invoke(null, module == "Auth"
-                ? [builder.Services, builder.Configuration, builder.Environment, assemblies]
-                : [builder.Services, builder.Configuration]);
+            registration.Invoke(null, [builder.Services, builder.Configuration]);
         }
         using var app = builder.Build();
         using var scope = app.Services.CreateScope();

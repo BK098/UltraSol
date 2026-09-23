@@ -22,6 +22,9 @@
     <ProjectReference Include="..\..\Modules\Catalog\UltraSol.Modules.Catalog.Api\UltraSol.Modules.Catalog.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Organization\UltraSol.Modules.Organization.Api\UltraSol.Modules.Organization.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Inventory\UltraSol.Modules.Inventory.Api\UltraSol.Modules.Inventory.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Pricing\UltraSol.Modules.Pricing.Api\UltraSol.Modules.Pricing.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Ordering\UltraSol.Modules.Ordering.Api\UltraSol.Modules.Ordering.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Payment\UltraSol.Modules.Payment.Api\UltraSol.Modules.Payment.Api.csproj" />
   </ItemGroup>
 
 </Project>

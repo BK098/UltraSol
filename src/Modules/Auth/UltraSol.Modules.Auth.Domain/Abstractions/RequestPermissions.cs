@@ -15,12 +15,6 @@ public sealed record PermissionSnapshot(bool IsSystem, string[] Roles, Permissio
     }
 }
 
-public interface ICurrentAccount
-{
-    Guid? UserId { get; }
-    Guid? SessionId { get; }
-}
-
 public sealed class AuthAccessException(int statusCode, string message) : Exception(message)
 {
     public int StatusCode { get; } = statusCode;

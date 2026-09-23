@@ -19,5 +19,6 @@
     <ProjectReference Include="../../src/Modules/Auth/UltraSol.Modules.Auth.Api/UltraSol.Modules.Auth.Api.csproj" />
     <ProjectReference Include="../../src/Modules/Catalog/UltraSol.Modules.Catalog.Api/UltraSol.Modules.Catalog.Api.csproj" />
     <ProjectReference Include="../../src/Modules/Organization/UltraSol.Modules.Organization.Api/UltraSol.Modules.Organization.Api.csproj" />
+    <ProjectReference Include="../../src/Shared/IntegrationEvents/UltraSol.Shared.IntegrationEvents.csproj" />
   </ItemGroup>
 </Project>

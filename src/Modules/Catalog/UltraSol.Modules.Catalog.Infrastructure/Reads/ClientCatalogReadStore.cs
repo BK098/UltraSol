@@ -30,4 +30,62 @@ public sealed class ClientCatalogReadStore(CatalogDbContext db) : IClientCatalog
             .OrderBy(value => value.Id).Select(value => new ClientItem(value.Id, value.Sku.Value, value.Media.Where(media => media.IsPrimary).Select(media => media.Url).FirstOrDefault())).ToListAsync(ct);
         return new ClientProductDetail(product, items);
     }
+
+    public async Task<IReadOnlyList<CheckoutItemData>> CheckoutItemsAsync(IReadOnlyCollection<Guid> productItemIds, CancellationToken ct)
+    {
+        var ids = productItemIds.ToArray();
+        var items = await db.ProductItems.AsNoTracking().Where(item => ids.Contains(item.Id))
+            .Select(item => new
+            {
+                item.Id,
+                item.ProductId,
+                SkuCode = item.Sku.Value,
+                ItemStatus = item.Status,
+                IsBundle = EF.Property<bool>(item, "StoredIsBundle"),
+                ItemImage = item.Media.Where(media => media.IsPrimary).Select(media => media.Url).FirstOrDefault(),
+                Product = db.Products.Where(product => product.Id == item.ProductId).Select(product => new
+                {
+                    product.Name,
+                    product.Status,
+                    Image = product.Media.Where(media => media.IsPrimary).Select(media => media.Url).FirstOrDefault()
+                }).Single()
+            }).ToListAsync(ct);
+        var selections = await db.Set<SelectionRow>().AsNoTracking().Where(row => ids.Contains(row.ProductItemId))
+            .Select(row => new
+            {
+                row.ProductItemId,
+                row.VariationId,
+                row.OptionId,
+                Variation = db.Set<Variation>().Where(variation => variation.Id == row.VariationId).Select(variation => variation.Name).Single(),
+                Option = db.Set<VariationOption>().Where(option => option.Id == row.OptionId).Select(option => option.Value).Single()
+            }).ToListAsync(ct);
+        var components = await db.Set<BundleRow>().AsNoTracking().Where(row => ids.Contains(row.BundleItemId))
+            .Select(row => new
+            {
+                row.BundleItemId,
+                row.ComponentItemId,
+                row.Quantity,
+                ItemStatus = db.ProductItems.Where(item => item.Id == row.ComponentItemId).Select(item => item.Status).Single(),
+                ProductStatus = db.ProductItems.Where(item => item.Id == row.ComponentItemId)
+                    .Select(item => db.Products.Where(product => product.Id == item.ProductId).Select(product => product.Status).Single()).Single()
+            }).ToListAsync(ct);
+        var selectionLookup = selections.OrderBy(row => row.Variation).ThenBy(row => row.VariationId).ThenBy(row => row.OptionId)
+            .ToLookup(row => row.ProductItemId);
+        var componentLookup = components.OrderBy(row => row.ComponentItemId).ToLookup(row => row.BundleItemId);
+        return items.Select(item =>
+        {
+            var bundleComponents = componentLookup[item.Id].ToArray();
+            var reasonCode = item.ItemStatus != ProductItemStatus.Active
+                ? "ProductItemNotActive"
+                : item.Product.Status != ProductStatus.Published
+                    ? "ProductNotPublished"
+                    : item.IsBundle && bundleComponents.Any(component => component.ItemStatus != ProductItemStatus.Active || component.ProductStatus != ProductStatus.Published)
+                        ? "BundleComponentNotSellable"
+                        : null;
+            return new CheckoutItemData(item.Id, item.ProductId, item.SkuCode, item.Product.Name,
+                string.Join(", ", selectionLookup[item.Id].Select(row => $"{row.Variation}: {row.Option}")),
+                item.ItemImage ?? item.Product.Image, reasonCode is null, reasonCode, item.IsBundle,
+                bundleComponents.Select(component => new CheckoutComponentData(component.ComponentItemId, component.Quantity)).ToArray());
+        }).ToArray();
+    }
 }

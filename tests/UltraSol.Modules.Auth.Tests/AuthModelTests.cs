@@ -24,7 +24,7 @@ public sealed class AuthModelTests
         {
             ["Postgres:ConnectionString"] = connection
         }).Build();
-        var services = new ServiceCollection().AddAuthInfrastructure(configuration);
+        var services = new ServiceCollection().AddSingleton<IConfiguration>(configuration).AddAuthInfrastructure(configuration);
         if (dispatcher is not null)
         {
             services.AddScoped(_ => dispatcher);

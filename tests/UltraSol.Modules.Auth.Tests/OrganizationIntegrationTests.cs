@@ -36,7 +36,7 @@ public sealed class OrganizationIntegrationTests(AuthDatabaseFixture fixture) : 
     internal static ServiceProvider Services(string connection, Action<IServiceCollection>? configure = null)
     {
         var configuration = new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string, string?> { ["Postgres:ConnectionString"] = connection }).Build();
-        var services = new ServiceCollection().AddAuthInfrastructure(configuration);
+        var services = new ServiceCollection().AddSingleton<IConfiguration>(configuration).AddAuthInfrastructure(configuration);
         services.AddScoped<IAuthRepository, AuthRepository>();
         services.AddScoped<AuthorizationRules>();
         services.AddScoped<Mailbox<AuthDbContext>>(sp => new(sp.GetRequiredService<AuthDbContext>(), sp.GetRequiredService<IAuthUnitOfWork>(), sp));
@@ -68,9 +68,8 @@ public sealed class OrganizationIntegrationTests(AuthDatabaseFixture fixture) : 
             var sp = scope.ServiceProvider;
             await sp.GetRequiredService<OrganizationDbContext>().Database.MigrateAsync();
             var sender = sp.GetRequiredService<ISender>();
-            var department = (Department)(await sender.Send(new CreateDepartmentCommand("Integration department"))).Data!;
-            departmentId = department.Id;
-            var employee = (Employee)(await sender.Send(new CreateEmployeeCommand(department.Id, "employee@example.com"))).Data!;
+            departmentId = Assert.IsType<Guid>((await sender.Send(new CreateDepartmentCommand("Integration department"))).Data);
+            var employee = (Employee)(await sender.Send(new CreateEmployeeCommand(departmentId, "employee@example.com"))).Data!;
             employeeId = employee.Id;
             Assert.Null(employee.UserId);
             Assert.Equal("Pending", employee.SyncStatus);

@@ -57,7 +57,7 @@ public class CollectionInfrastructureTests
         services.AddSwaggerGen(options => options.SwaggerDoc("v1", new() { Title = "UltraSol API", Version = "v1" }));
         using var provider = services.BuildServiceProvider();
         var document = provider.GetRequiredService<ISwaggerProvider>().GetSwagger("v1");
-        Assert.Equal(29, document.Paths.Values.Sum(path => path.Operations!.Keys.Count(method =>
+        Assert.Equal(30, document.Paths.Values.Sum(path => path.Operations!.Keys.Count(method =>
             string.Equals(method.ToString(), "GET", StringComparison.OrdinalIgnoreCase))));
         Assert.Contains("GetProductsQueryResponse", document.Components!.Schemas!.Keys);
         Assert.Contains("GetProductDetailQueryResponse", document.Components.Schemas.Keys);

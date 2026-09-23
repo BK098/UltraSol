@@ -1,3 +1,4 @@
+using UltraSol.Shared.Application.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

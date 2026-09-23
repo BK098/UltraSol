@@ -59,7 +59,19 @@ public sealed class ModuleArchitectureTests
         {
             Assert.NotNull(contract.GetProperty("EventId"));
             Assert.NotNull(contract.GetProperty("CorrelationId"));
-            Assert.NotNull(contract.GetProperty("AggregateVersion"));
+            if (contract.Namespace is "UltraSol.Shared.IntegrationEvents.Auth" or "UltraSol.Shared.IntegrationEvents.Organization")
+            {
+                Assert.NotNull(contract.GetProperty("AggregateVersion"));
+            }
+            else
+            {
+                Assert.NotNull(contract.GetProperty("OccurredAt"));
+                Assert.NotNull(contract.GetProperty("OrderId"));
+                if (contract.Namespace == "UltraSol.Shared.IntegrationEvents.Ordering")
+                {
+                    Assert.NotNull(contract.GetProperty("OrderVersion"));
+                }
+            }
             Assert.NotNull(contract.GetProperty("ContractVersion"));
             Assert.DoesNotContain(contract.GetProperties(), property => property.Name.Contains("Password", StringComparison.OrdinalIgnoreCase));
             Assert.DoesNotContain(contract.GetProperties(), property => property.PropertyType.Namespace?.Contains(".Domain") == true);

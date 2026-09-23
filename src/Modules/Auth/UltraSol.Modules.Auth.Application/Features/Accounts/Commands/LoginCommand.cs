@@ -1,8 +1,8 @@
 using FluentValidation;
+using UltraSol.Shared.Application.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UltraSol.Modules.Auth.Application.Authentication;
-using UltraSol.Modules.Auth.Application.Authorization;
 using UltraSol.Modules.Auth.Application.Persistence;
 using UltraSol.Modules.Auth.Domain.Abstractions;
 using UltraSol.Modules.Auth.Domain.Accounts;

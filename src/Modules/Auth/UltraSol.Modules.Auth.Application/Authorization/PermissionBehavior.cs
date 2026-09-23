@@ -1,3 +1,4 @@
+using UltraSol.Shared.Application.Authentication;
 using MediatR;
 using UltraSol.Shared.Application.Services;
 
@@ -31,6 +32,6 @@ public sealed class PermissionBehavior<TRequest, TResponse>(ICurrentAccount curr
     }
 }
 
-public interface IAnonymousAuthRequest;
-public interface ISelfServiceAuthRequest;
+
+
 public interface ISystemAuthRequest;

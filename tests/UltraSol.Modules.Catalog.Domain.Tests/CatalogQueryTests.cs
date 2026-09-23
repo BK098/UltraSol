@@ -36,6 +36,10 @@ public class CatalogQueryTests
             {
                 return (object)Id;
             }
+            if (p.ParameterType == typeof(Guid[]))
+            {
+                return new[] { Id };
+            }
             if (p.ParameterType == typeof(PagedFilter))
             {
                 return new PagedFilter();
@@ -109,9 +113,15 @@ public class CatalogQueryTests
                 throw new KeyNotFoundException("Missing catalog resource.");
             }
             var product = new ClientProduct(Id, "Product name", "Description", null);
-            return method.Name == "ProductsAsync"
-                ? Task.FromResult(PaginatedResult<ClientProduct>.Create([product], 1, PaginationRequest.Create(1, 10)))
-                : Task.FromResult(new ClientProductDetail(product, [new(Id, "SKU-001", null)]));
+            return method.Name switch
+            {
+                "ProductsAsync" => Task.FromResult(PaginatedResult<ClientProduct>.Create([product], 1, PaginationRequest.Create(1, 10))),
+                "ProductAsync" => Task.FromResult(new ClientProductDetail(product, [new(Id, "SKU-001", null)])),
+                "CheckoutItemsAsync" => Task.FromResult<IReadOnlyList<CheckoutItemData>>([
+                    new(Id, Id, "SKU-001", "Product name", "Color: Black", null, true, null, false, [])
+                ]),
+                _ => throw new NotSupportedException(method.Name)
+            };
         };
         services.AddSingleton(client);
         return services.BuildServiceProvider();

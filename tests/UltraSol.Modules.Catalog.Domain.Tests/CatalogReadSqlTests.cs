@@ -14,6 +14,24 @@ namespace UltraSol.Modules.Catalog.Domain.Tests;
 
 public class CatalogReadSqlTests
 {
+    [Fact]
+    public async Task Checkout_reads_items_variants_and_components_in_fixed_batches()
+    {
+        var commands = new CaptureCommands();
+        await using var db = new CatalogDbContext(new DbContextOptionsBuilder<CatalogDbContext>()
+            .UseNpgsql("Host=localhost;Database=unused;Username=unused;Password=unused")
+            .AddInterceptors(new NoConnection(), commands)
+            .Options);
+
+        var result = await new ClientCatalogReadStore(db).CheckoutItemsAsync([Guid.NewGuid(), Guid.NewGuid()], default);
+
+        Assert.Empty(result);
+        Assert.Equal(3, commands.Sql.Count);
+        Assert.Contains(commands.Sql, sql => sql.Contains("product_item_selections", StringComparison.OrdinalIgnoreCase));
+        Assert.Contains(commands.Sql, sql => sql.Contains("bundle_components", StringComparison.OrdinalIgnoreCase));
+        Assert.Empty(db.ChangeTracker.Entries());
+    }
+
     [Theory]
     [InlineData("products")]
     [InlineData("items")]
